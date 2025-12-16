@@ -1,0 +1,71 @@
+#网络接口操作
+#有4个输入,4个输出
+#输入命令控制网络操作,分别是误操作0,监听1(端口),连接2(IP,端口),发送数据3(ID,数据,数据长度),关闭4(连接ID),读取下一个事件5
+#R0绑定IP/连接ID
+#R1绑定数据/端口
+#R2绑定数据长度
+#R3绑定数据长度
+#输出事件分别是无事件0,传入连接1(ID,端口号),成功连接2,接受数据3(ID,数据,长度),关闭连接4(ID/错误代码)
+
+const cmd 0x100000000
+
+const setr0 0x1*cmd
+const setr1 0x2*cmd
+const setr2 0x3*cmd
+const setr6 0x4*cmd
+#需要保存至R3,R4,R5
+const command 0x5*cmd
+const checkevent0 0x6*cmd
+const checkevent1 0x7*cmd
+const checkevent3 0x8*cmd
+const goto 0x9*cmd
+const movr3tor0 0xa*cmd
+const movr4tor1 0xb*cmd
+const movr5tomem 0xc*cmd
+const addr6 0xd*cmd
+const movmemtor1 0xe*cmd
+const subr6 0xf*cmd
+const checkr6 0x10*cmd
+
+setr0|0x0
+setr1|20001
+setr2|0
+command|1
+
+
+label check
+checkevent0|check
+
+checkevent1|connect
+
+checkevent3|readdata
+
+
+
+label connect
+command|5
+movr3tor0
+movr4tor1
+goto|check
+
+
+
+
+
+label readdata
+setr6|0
+
+label readdata1
+command|5
+movr5tomem
+addr6
+checkevent0|senddata
+goto|readdata1
+
+label senddata
+movmemtor1
+command|3
+subr6
+checkr6|senddata
+
+goto|check
