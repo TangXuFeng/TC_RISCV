@@ -1,9 +1,2 @@
-魔改RISCV指令格式,实现部分功能
-指令32bit定长,高位存储opcode,低位存储立即数
-参考http://riscvbook.com/chinese/RISC-V-Reader-Chinese-v1.pdf
 
-31个32位通用寄存器,一个零寄存器.网络接口最大数据长度8bit
-
-因为不考虑需要等待opcode解码后才能确定指令结构的时间
-所以把rs2和rd放在一起,根据opcode确定11:7是rd还是rs2
-
+实现指令集
