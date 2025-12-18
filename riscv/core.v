@@ -12,8 +12,7 @@ module core #(
 );
 
 // 跳转相关
-wire [31:0] jump_pc;
-wire        j;
+wire [31:0] pc_next;
 
 // 寄存器文件接口
 wire [4:0]  rd_address;
@@ -29,11 +28,9 @@ wire [6:0]  funct7;
 wire [31:0] immediate;
 wire [6:0]  opcode;
 wire [4:0]  rd;
-wire [3:0]  state;
+wire        opcode_c_mode;
 
 // 执行器输出
-wire [31:0] pc_out;
-wire [31:0] alu_result;
 wire [31:0] mem_addr_out;
 wire [31:0] mem_wdata_out;
 wire        mem_read_out;
@@ -51,11 +48,10 @@ wire [31:0] memory_read_data;
 pc  #(
     .RST_PC_ADDRESS(RST_PC_ADDRESS)
 ) pc_inst (
-    .jump_pc(jump_pc)
-    ,.j(j)
-    ,.pc(pc)
-    ,.clk(clk)
+     .clk(clk)
     ,.rst_n(rst_n)
+    ,.pc(pc)
+    ,.pc_next(pc_next)
 );
 
 // 寄存器文件
@@ -80,17 +76,18 @@ instruction_decoder instruction_decoder_inst (
     ,.rs2_address(rs2_address)
     ,.funct7(funct7)
     ,.immediate(immediate)
+    ,.opcode_c_mode(opcode_c_mode)
 );
 
 // 执行器
 executor executor_inst (
     .clk(clk)
     ,.rst_n(rst_n)
-    ,.next_pc(pc)              // 当前PC作为下一条指令基准
-    ,.jump_pc(jump_pc)         // 来自分支/跳转计算
     ,.rd_data(rd_data)         // 寄存器写回数据
     ,.rs1_data(rs1_data)       // 源寄存器1数据
     ,.rs2_data(rs2_data)       // 源寄存器2数据
+    ,.pc(pc)                   // 当前地址指针
+    ,.opcode_c_mode(opcode_c_mode)
     ,.memory_address(memory_address)       // 访存地址
     ,.memory_read(memory_read)             // 访存读使能
     ,.memory_write(memory_write)           // 访存写使能
@@ -98,9 +95,7 @@ executor executor_inst (
     ,.memory_read_data(memory_read_data)   // 访存读数据
 
     // 输出端口
-    ,.pc_out(pc_out)
-    ,.j(j)
-    ,.alu_result(alu_result)
+    ,.pc_next(pc_next)
     ,.mem_addr_out(mem_addr_out)
     ,.mem_wdata_out(mem_wdata_out)
     ,.mem_read_out(mem_read_out)

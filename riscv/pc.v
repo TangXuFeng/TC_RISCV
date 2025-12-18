@@ -5,10 +5,8 @@ module pc #(
 )(
     input         clk
     ,input         rst_n
-    ,input  [31:0] jump_pc
-    ,input         j
+    ,input  [31:0] pc_next
     ,output [31:0] pc
-    ,output [31:0] next_pc
 );
 
 // ========= PC 寄存器 =========
@@ -19,11 +17,10 @@ always @(posedge clk or negedge rst_n) begin
 if (!rst_n) begin
     pc_r <= RST_PC_ADDRESS;
 end else begin
-pc_r <= j ? jump_pc : next_pc;
+    pc_r <= pc_next;
 end
 end
 
 assign pc      = pc_r;
-assign next_pc = pc_r + 32'd4;
 
 endmodule
