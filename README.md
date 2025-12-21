@@ -27,6 +27,28 @@
 
 内存控制器同时有读写请求时,将优先处理当前任务,然后处理i_cache,最后处理d_cache
 
+整体布局
+riscv(
+ core(
+  pc()
+  regfile()
+  instruction_decoder()
+  executor(
+   alu()
+  )
+ )
+ cache()
+ memory_contorller()
+ memory()
+ network_mmio()
+ console_mmio()
+ keyboard_mmio()
+ interrup_controller(
+  timer_imterrup()
+ )
+ clock_mmio()
+)
+
 
 </pre>
 
