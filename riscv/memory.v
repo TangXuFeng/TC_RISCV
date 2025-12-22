@@ -5,11 +5,10 @@ module memory #(
     input               clk
     ,input              rst_n
 
-    ,input              rw       // 0=读, 1=写
     ,input      [31:0]  address
-    ,input      [31:0]  write_data
-
     ,output     [31:0]  read_data // 异步读
+    ,input      [31:0]  write_data
+    ,input              write_data_sig       // 0=读, 1=写
     ,output             selected //选中信号
 );
     //定义内存大小
@@ -18,14 +17,14 @@ module memory #(
 
     assign selected = (address & MMIO_MASK_MEMORY)==MMIO_BASE_MEMORY;
 
-    //读取,并且低位地址必须等于0
-    assign read_data = (selected && rw == 1'b0 && address[1:0]==0 ) ? mem[address[31:2]] : 32'b0;
+    
+    assign read_data = (selected ) ? mem[address[31:2]] : 32'b0;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             //假装重置了
             mem[0]=32'b0;
-        end else if (selected &&rw == 1'b1 && address[1:0] == 2'b00) begin
+        end else if (selected &&write_data_sig == 1'b1 ) begin
             mem[address[31:2]] <= write_data;
         end
     end

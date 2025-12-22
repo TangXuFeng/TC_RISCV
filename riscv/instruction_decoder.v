@@ -8,7 +8,6 @@ module instruction_decoder(
     ,output reg [4:0]  rs2_address
     ,output reg [6:0]  funct7
     ,output reg [31:0] immediate
-    ,output reg        opcode_c_mode
 );
 
     always @(*) begin
@@ -24,7 +23,6 @@ module instruction_decoder(
         // 压缩指令直接忽略
         if (instruction[1:0] != 2'b11) begin
             opcode = 7'b0;
-            opcode_c_mode = 1'b1;
             //如果要实现压缩指令,这里需要重新处理opcode,解压到长指令
 
         end else begin
