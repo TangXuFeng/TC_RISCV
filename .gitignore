@@ -4,5 +4,6 @@
 *.log
 *.tmp
 *.swp
+*.txt
 build/
 shell
