@@ -2,12 +2,12 @@
 module executor    (
     input              clk
     ,input              rst_n
+    ,input      [31:0]  opcode_decode
     ,input      [31:0]  instruction
     ,input      [5:0]   opcode
     ,input      [2:0]   funct3
     ,input      [6:0]   funct7
     ,input      [31:0]  immediate
-    ,input      [31:0]  opcode_decode
     ,input      [31:0]  rs1_data
     ,input      [31:0]  rs2_data
 

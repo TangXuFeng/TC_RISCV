@@ -1,3 +1,8 @@
+// 特别注意: 这个文件是ai生成的,还没加入进去.
+//
+// 中断控制器还没做
+//
+//
 module trap_controller (
     input  wire        clk,
     input  wire        rst,
