@@ -1,9 +1,0 @@
-label start
-jne+i2 io 1 next#不是墙跳转
-or+i1+i2 0 0 io#左转
-je r0 r0 start
-label next
-or+i1+i2 0 4 io#开门
-or+i1+i2 0 1 io#前进
-or+i1+i2 0 2 io#右转
-je ro ro start

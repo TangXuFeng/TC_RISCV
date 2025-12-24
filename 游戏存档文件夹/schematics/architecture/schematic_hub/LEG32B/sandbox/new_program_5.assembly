@@ -1,8 +1,0 @@
-add|AL 8 8 1
-IF|AL|LESS|MovePointer|mod2 1 2 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-
-

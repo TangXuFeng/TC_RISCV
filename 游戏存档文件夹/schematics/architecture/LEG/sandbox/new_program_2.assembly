@@ -1,8 +1,0 @@
-or|i1|i2 123 0 r0
-or|i1|i2 45 0 r1
-
-add r0 r1 r2
-
-and r1 r2 r3
-
-label a

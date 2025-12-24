@@ -1,7 +1,0 @@
-L3_wrt|AL 1 2 1
-L3_read|AL1 1 0 4
-
-cpus|cpu1 0 0 0
-L3_wrt|AL 1 1 2
-L3_read|AL1 2 0 3
-cpus|cpugo1 0 0 0
