@@ -36,8 +36,8 @@
 0x00a0a893
 # sltiu x18, x1, 10
 0x00a0b913
-# addi  x20, x0, 20
-0x01400a13
+# addi  x20, x0, 200
+0x0c800a13
 # sw    x1, 0(x20)
 0x001a2023
 # lw    x21, 0(x20)
@@ -94,3 +94,17 @@
 0x00400293
 # addi  x6, x0, 0
 0x00000313
+# jalr  x7, x6, jump2
+0x000303e7
+# jal   x0, fail
+0x0000a06f
+# addi  x28, x0, 99
+0x06300e13
+# lui   x10, 0x12345
+0x00012537
+# auipc x11, 0x10
+0x00000597
+# jal x0, success
+0x0000006f
+# jal x0, fail
+0x0000006f

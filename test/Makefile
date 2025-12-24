@@ -10,7 +10,3 @@ clean:
 	
 run:
 	qemu-system-riscv32 -machine virt -nographic -bios none -kernel test.elf
-
-testrv32m:
-	gcc check_RV32M.c -o check_RV32M.elf
-	./check_RV32M.elf > check_RV32M.txt

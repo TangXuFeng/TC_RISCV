@@ -35,11 +35,11 @@ start:
     # -------------------------
     # Load / Store
     # -------------------------
-    addi  x20, x0, 20      # x20 = 200 (内存地址)
+    addi  x20, x0, 200      # x20 = 200 (内存地址)
     sw    x1, 0(x20)        # mem[200] = 5
     lw    x21, 0(x20)       # x21 = 5
 
-    addi  x22, x0, 0x1234
+    addi  x22, x0, 0x1234   # 会截断为0x0234
     sw    x22, 4(x20)       # mem[204] = 0x1234
     lw    x23, 4(x20)       # x23 = 0x1234
 
@@ -74,7 +74,7 @@ br_geu_ok:
     # -------------------------
     # JAL / JALR
     # -------------------------
-    jal   x24, jump_target   # x24 = return addr
+    jal   x24, jump_target - pc  # x24 = return addr
     jal   x0, fail
 
 jump_target:
@@ -91,7 +91,7 @@ jump_target:
 
     addi  x5, x0, 4
     addi  x6, x0, 0
-    jalr  x7, x6, jump2 - start  # 跳到 jump2
+    jalr  x7, x6, jump2      # 跳到 jump2
 
     jal   x0, fail
 
