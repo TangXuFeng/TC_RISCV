@@ -44,6 +44,7 @@ module alu #(
                 3'b010:alu_result = $signed(alu_a) < $signed(alu_b)?32'b1:32'b0; 
                 3'b011:alu_result = alu_a < alu_b ? 32'b1:32'b0;
                 3'b100:alu_result = alu_a ^ alu_b;
+                3'b101:alu_result = alu_a >> alu_b[4:0];
                 3'b110:alu_result = alu_a | alu_b;
                 3'b111:alu_result = alu_a & alu_b;
             endcase

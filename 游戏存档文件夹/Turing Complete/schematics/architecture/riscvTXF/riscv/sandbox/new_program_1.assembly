@@ -1,0 +1,96 @@
+# add   x1, x0, x0
+0x000000b3
+# addi  x1, x0, 5
+0x00500093
+# addi  x2, x0, 3
+0x00300113
+# add   x3, x1, x2
+0x002081b3
+# sub   x4, x1, x2
+0x40208233
+# xor   x5, x1, x2
+0x0020c2b3
+# or    x6, x1, x2
+0x0020e333
+# and   x7, x1, x2
+0x0020f3b3
+# sll   x8, x1, x2
+0x00209433
+# srl   x9, x1, x2
+0x0020d4b3
+# sra   x10, x1, x2
+0x4020d533
+# slt   x11, x2, x1
+0x001125b3
+# sltu  x12, x2, x1
+0x00113633
+# addi  x13, x1, -2
+0xffe08693
+# xori  x14, x1, 0xF
+0x00f0c713
+# ori   x15, x1, 0xF
+0x00f0e793
+# andi  x16, x1, 0xF
+0x00f0f813
+# slti  x17, x1, 10
+0x00a0a893
+# sltiu x18, x1, 10
+0x00a0b913
+# addi  x20, x0, 20
+0x01400a13
+# sw    x1, 0(x20)
+0x001a2023
+# lw    x21, 0(x20)
+0x000a2a83
+# addi  x22, x0, 0x1234
+0x23400b13
+# sw    x22, 4(x20)
+0x016a2223
+# lw    x23, 4(x20)
+0x004a2b83
+# beq   x21, x1, br_eq_ok
+0x001a8263
+# jal   x0, fail
+0x0003806f
+# bne   x21, x2, br_ne_ok
+0x002a9263
+# jal   x0, fail
+0x0003406f
+# blt   x2, x1, br_lt_ok
+0x00114263
+# jal   x0, fail
+0x0003006f
+# bge   x1, x2, br_ge_ok
+0x0020d263
+# jal   x0, fail
+0x0002c06f
+# bltu  x2, x1, br_ltu_ok
+0x00116263
+# jal   x0, fail
+0x0002806f
+# bgeu  x1, x2, br_geu_ok
+0x0020f263
+# jal   x0, fail
+0x0002406f
+# jal   x24, jump_target
+0x00004c6f
+# jal   x0, fail
+0x0002006f
+# addi  x25, x24, 4
+0x004c0c93
+# addi  x26, x0, 0
+0x00000d13
+# addi  x27, x0, 0
+0x00000d93
+# addi  x28, x0, 0
+0x00000e13
+# addi  x29, x0, 0
+0x00000e93
+# addi  x30, x0, 0
+0x00000f13
+# addi  x31, x0, 0
+0x00000f93
+# addi  x5, x0, 4
+0x00400293
+# addi  x6, x0, 0
+0x00000313
