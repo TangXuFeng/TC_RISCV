@@ -1,0 +1,598 @@
+# Should match your TPS
+const TPS 1000
+
+const BPMI 90 # BPM of intro
+const BPM 115 # Normal BPM
+
+const TI TPS*60/BPMI # Beat of intro
+const T TPS*60/BPM # Normal beat
+
+# number = notes per second
+const HI h|(TPS/100) # Hold of intro
+const HD h|(TPS/60) # Hold drum
+const H h|(TPS/30) # Normal hold
+
+const L Inst0 # Lead
+const B Inst3 # Bass
+const D Inst4+14 # Drum
+
+# You can add as many notes as you
+# want in one chord, then close it
+# with P (Play) or H (Hold) followed
+# by duration where T = 1 beat.
+# Duration of 0 "stops" the program
+# by being a max note duration.
+# R (Rest) is instrument 255 which
+# isn't assigned by default = silent
+
+== Intro ==
+L+Eb3 L+G4 L+Bb4 B+D5 HI TI*2
+L+G4 HI TI
+L+Eb4 HI TI
+L+B2 L+Ab3 L+F4 L+D5 HI TI
+L+C3 L+G3 L+G4 L+Eb5 HI TI
+L+G3 L+D4 L+F4 L+B5 HI TI
+L+C4 L+Eb4 L+C6 HI TI
+L+Eb5 L+C6 L+Eb6 HI TI*2
+L+C5 L+C6 HI TI
+L+Ab4 L+Ab5 HI TI
+L+Ab4 L+Bb4 L+D5 L+G5 HI TI*2
+L+F4 L+Ab4 L+B4 L+D5 L+F5 HI TI*2
+D L+F4 L+Ab4 L+B4 L+D5 L+F5 HI TI
+D HD TI*7
+
+== Main1 ==
+D L+Db5 P T/4
+D L+D5 P T/4
+L+Eb2 L+Eb4 L+Eb5 H T/2
+D B+G4 B+Bb4 P T/2
+L+Bb2 P T/2
+D B+G4 B+Bb4 P T/2
+
+L+Ab2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Ab4 B+C5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+C3 L+Eb4 L+Eb5 H T/2
+D B+Bb4 B+C5 P T/2
+L+G2 P T/2
+D B+Bb4 B+C5 P T/2
+
+L+Bb2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Bb4 B+Db5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+Bb2 L+F4 B+Bb4 B+Db5 L+F5 P T/4
+L+Gb4 L+Gb5 P T/4
+D L+Ab2 L+G4 L+G5 H T/2
+D B+Ab4 B+C5 P T/2
+L+Eb3 P T/2
+D B+Ab4 B+C5 P T/2
+
+L+G2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+D5 B+Eb5 L+G5 P T/2
+L+C3 L+G4 L+G5 H T/2
+D P 1
+L+Gb2 L+F4 B+Bb4 B+C5 L+F5 H T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+C3 L+Eb4 L+Eb5 P T/2
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+Bb2 L+Bb4 L+Bb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+F4 B+B4 B+D5 L+F5 P T/2
+
+L+Eb2 L+Eb4 L+Eb5 H T/2
+D B+G4 B+Bb4 P T/2
+L+Bb2 P T/2
+D B+G4 B+Bb4 P T/2
+
+
+L+Ab2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Ab4 B+C5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+C3 L+Eb4 L+Eb5 H T/2
+D B+Bb4 B+C5 P T/2
+L+G2 P T/2
+D B+Bb4 B+C5 P T/2
+
+L+Bb2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Bb4 B+Db5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+Bb2 L+F4 B+Bb4 B+Db5 L+F5 P T/4
+L+Gb4 L+Gb5 P T/4
+D L+Ab2 L+G4 L+G5 H T/2
+D B+Ab4 B+C5 P T/2
+L+Eb3 P T/2
+D B+Ab4 B+C5 P T/2
+
+L+G2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+D5 B+Eb5 L+G5 P T/2
+L+C3 L+G4 L+G5 H T/2
+D P 1
+L+Gb2 L+F4 B+Bb4 B+C5 L+F5 H T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+C3 L+Eb4 L+Eb5 P T/2
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+Bb2 L+Bb4 L+Bb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+F4 B+B4 B+D5 L+F5 P T/2
+
+== Chorus1 ==
+# Gangle and
+L+Ab2 L+G4 B+C5 B+Eb5 L+G5 H T/2
+D B+Ab3 B+C4 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb4 P T/2
+# Zooble and
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Bb4 P T/2
+# Kinger too
+L+A2 L+Eb5 H T/2
+D B+F3 B+C4 P T/4
+L+C5 H T/4
+L+Ab2 P T/2
+D B+F3 B+B3 P 1
+L+Bb4 H T/2
+L+G2 L+Bb4 P 1
+L+Bb4 H T/2
+D B+G3 B+Bb3 L+Bb4 P 1
+L+Bb4 H T/2
+L+Eb3 L+Bb4 P 1
+L+Bb4 H T/4
+L+Ab4 H T/4
+D B+G3 B+Bb3 L+A4 P 1
+L+A4 H T/4
+L+Bb4 H T/4
+# Ragatha and
+L+Ab2 L+G5 H T/2
+D B+Ab3 B+C4 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb4 P T/2
+# Jax, and there's
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Bb4 P T/2
+# Kaufmo
+B+F2 L+C5 H T/4
+R P T/4
+D B+F3 B+A3 P T/4
+L+C5 H T/4
+B+C3 L+C5 P 1
+L+C5 H T/2
+D B+A3 B+Eb4 L+C5 P 1
+L+C5 H T/2
+# woo hoo!
+B+Bb2 L+Db5 P 1
+L+Db5 H T/2
+D B+Ab3 B+Db4 L+Bb4 P 1
+L+Bb4 H T/2
+B+Eb2 L+F5 P 1
+L+F5 H T/2
+D B+G3 B+Db4 L+Eb5 P 1
+L+Eb5 H T/4
+L+F5 P T/8
+L+Gb5 P T/8
+# Day after
+L+Ab2 L+G5 H T/2
+D B+Ab3 B+C4 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb4 P T/2
+# day after --
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Bb4 P T/2
+# day after --
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Bb4 P T/2
+# day after
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Bb4 P T/2
+# day we fly
+L+A2 L+Eb5 H T/2
+D B+F3 B+C4 P T/4
+L+C5 H T/4
+L+Ab2 P T/2
+D B+F3 B+B3 P 1
+L+Bb4 H T/2
+L+G2 L+Bb4 P 1
+L+Bb4 H T/2
+D B+G3 B+Bb3 L+Bb4 P 1
+L+Bb4 H T/2
+L+Eb3 L+Bb4 P 1
+L+Bb4 H T/4
+L+Ab4 H T/4
+D B+G3 B+Bb3 L+A4 P 1
+L+A4 H T/4
+L+Bb4 H T/4
+# Past the moon and the
+L+Ab2 L+G5 H T/2
+D B+Ab3 B+C4 P T/4
+L+Eb5 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb4 P T/2
+# sun and we
+L+G2 L+G5 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+F5 P T/4
+B+Eb3 P T/2
+D B+G3 B+Db4 L+Eb5 P 1
+L+Eb5 H T/2
+# don't know why
+B+F2 L+F5 P 1
+L+F5 H T/2
+D B+A3 B+C4 P T/4
+L+F5 P T/4
+B+F2 P T/2
+D P 1
+B+Bb2 L+Ab4 L+D5 L+Gb5 H T
+D B+Bb1 P 1
+L+Ab4 L+D5 L+Gb5 H T/2
+B+Bb1 L+Ab4 L+D5 L+Gb5 H T/2
+
+== Main2 ==
+D B+Bb1 L+F5 P T/4
+D L+E5 P T/4
+L+Eb2 L+Eb4 L+Eb5 H T/2
+D B+G4 B+Bb4 P T/2
+L+Bb2 P T/2
+D B+G4 B+Bb4 P T/2
+
+L+Ab2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Ab4 B+C5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+C3 L+Eb4 L+Eb5 H T/2
+D B+Bb4 B+C5 P T/2
+L+G2 P T/2
+D B+Bb4 B+C5 P T/2
+
+L+Bb2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Bb4 B+Db5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+Bb2 L+F4 B+Bb4 B+Db5 L+F5 P T/4
+L+Gb4 L+Gb5 P T/4
+D L+Ab2 L+G4 L+G5 H T/2
+D B+Ab4 B+C5 P T/2
+L+Eb3 P T/2
+D B+Ab4 B+C5 P T/2
+
+L+G2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+D5 B+Eb5 L+G5 P T/2
+L+C3 L+G4 L+G5 H T/2
+D P 1
+L+Gb2 L+F4 B+Bb4 B+C5 L+F5 H T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+C3 L+Eb4 L+Eb5 P T/2
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+Bb2 L+Bb4 L+Bb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+F4 B+B4 B+D5 L+F5 P T/2
+
+L+Eb2 L+Eb4 L+Eb5 H T/2
+D B+G4 B+Bb4 P T/2
+L+Bb2 P T/2
+D B+G4 B+Bb4 P T/2
+
+
+L+Ab2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Ab4 B+C5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+C3 L+Eb4 L+Eb5 H T/2
+D B+Bb4 B+C5 P T/2
+L+G2 P T/2
+D B+Bb4 B+C5 P T/2
+
+L+Bb2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+Bb4 B+Db5 L+G5 P T/2
+L+Eb3 L+G4 L+G5 H T/4
+R P T/4
+D L+Bb2 L+F4 B+Bb4 B+Db5 L+F5 P T/4
+L+Gb4 L+Gb5 P T/4
+D L+Ab2 L+G4 L+G5 H T/2
+D B+Ab4 B+C5 P T/2
+L+Eb3 P T/2
+D B+Ab4 B+C5 P T/2
+
+L+G2 L+Bb4 L+Bb5 H T/2
+D L+G4 B+D5 B+Eb5 L+G5 P T/2
+L+C3 L+G4 L+G5 H T/2
+D P 1
+L+Gb2 L+F4 B+Bb4 B+C5 L+F5 H T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+C3 L+Eb4 L+Eb5 P T/2
+D L+F4 B+Ab4 B+C5 L+F5 P T/2
+L+Bb2 L+Bb4 L+Bb5 P T/2
+D L+C4 B+F4 B+Ab4 L+C5 P T/2
+L+F2 L+Eb4 L+Eb5 P T/2
+D L+F4 B+B4 B+D5 L+F5 P T/2
+
+== Chorus2 ==
+B+Ab3 L+G6 H T/2
+D B+Ab4 B+C5 P T/4
+L+Eb6 P T/4
+B+Eb4 P T/2
+D B+Ab4 B+C5 L+Bb5 P T/2
+
+L+G3 L+G6 H T/2
+D B+Eb4 B+Bb4 P T/4
+L+Eb6 P T/4
+B+Eb4 P T/2
+D B+G4 B+Bb4 L+Bb5 P T/2
+
+L+A3 L+Eb6 H T/2
+D B+F4 B+C5 P T/4
+L+C6 H T/4
+L+Ab3 P T/2
+D B+F4 B+B4 P 1
+L+Bb5 H T/2
+L+G3 L+Bb5 P 1
+L+Bb5 H T/2
+D B+G4 B+Bb4 L+Bb5 P 1
+L+Bb5 H T/2
+L+Eb4 L+Bb5 P 1
+L+Bb5 H T/4
+L+Ab5 H T/4
+D B+G4 B+Bb4 L+A5 P 1
+L+A5 H T/4
+L+Bb5 H T/4
+
+L+Ab3 L+G6 H T/2
+D B+Ab4 B+C5 P T/4
+L+Eb6 P T/4
+B+Eb4 P T/2
+D B+Ab4 B+C5 L+Bb5 P T/2
+
+L+G3 L+G6 H T/2
+D B+Eb4 B+Bb4 P T/4
+L+Eb6 P T/4
+B+Eb4 P T/2
+D B+G4 B+Bb4 L+Bb5 P T/2
+
+B+F3 L+C6 H T/4
+R P T/4
+D B+F4 B+A4 P T/4
+L+C6 H T/4
+B+C4 L+C6 P 1
+L+C6 H T/2
+D B+A4 B+Eb5 L+C6 P 1
+L+C6 H T/2
+
+B+Bb3 L+Db6 P 1
+L+Db6 H T/2
+D B+Ab4 B+Db5 L+Bb5 P 1
+L+Bb5 H T/2
+B+Eb3 L+F6 P 1
+L+F6 H T/2
+D B+G4 B+Db5 L+Eb6 P 1
+L+Eb6 H T/4
+L+F6 P T/8
+L+Gb6 P T/8
+
+
+B+Ab3 L+G6 H T/2
+D B+C4 B+Ab4 P T/4
+L+Eb6 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb5 P T/2
+
+B+G3 L+G6 H T/2
+D B+Bb3 B+Eb4 P T/4
+L+Eb6 P T/4
+B+Eb3 P T/2
+D B+G3 B+Eb4 L+Bb5 P T/2
+
+B+A2 L+Eb6 H T/2
+D B+F3 B+C4 P T/4
+L+C6 H T/4
+L+Ab2 P T/2
+D B+F3 B+B3 L+Bb5 P 1
+L+Bb5 H T/2
+B+G2 L+Bb5 P 1
+L+Bb5 H T/2
+D B+G3 B+Bb3 L+Bb5 P 1
+L+Bb5 H T/2
+B+Eb3 L+Bb5 P 1
+L+Bb5 H T/4
+L+Ab5 H T/4
+D B+G3 B+Bb3 L+A5 P 1
+L+A5 H T/4
+L+Bb5 H T/4
+
+B+Ab2 L+G6 H T/2
+D B+Ab3 B+C4 P T/4
+L+Eb6 P T/4
+B+Eb3 P T/2
+D B+Ab3 B+C4 L+Bb5 P T/2
+
+B+G2 L+G6 H T/2
+D B+Eb3 B+Bb3 P T/4
+L+F6 P T/4
+B+Eb3 P T/2
+D B+G3 B+Bb3 L+Eb6 P 1
+L+Eb6 H T/2
+
+B+F2 L+F6 P 1
+L+F6 H T/2
+D B+F3 B+A3 P T/4
+L+F6 P T/4
+B+C3 P T/2
+D B+F3 B+A3 L+C6 P T/2
+L+Eb5 L+F5 L+Bb5 H T/2
+D B+Bb2 H T/2
+L+D5 L+F5 L+Bb5 H T/2
+D B+Bb1 P T/2
+L+E5 L+Gb5 L+B5 H T/2
+D B+B2 H T/2
+L+Eb5 L+Gb5 L+B5 H T/2
+D B+B1 P T/2
+
+== Main3 ==
+B+E2 L+Ab4 L+B4 L+E5 H T/2
+D B+Ab3 B+B3 P T/2
+L+E3 P T/2
+D B+Ab3 B+B3 P T/2
+
+L+A2 P 1
+L+B4 L+B5 H T/2
+D B+A3 B+Db4 L+Ab4 L+Ab5 P T/2
+L+E3 L+Ab4 L+Ab5 P T/2
+D B+A3 B+Db4 L+Gb4 L+Gb5 P T/2
+L+Db3 L+E4 L+E5 H T/2
+D B+B3 B+Db4 P T/2
+L+Ab2 P T/2
+D B+B3 B+Db4 P T/2
+
+L+B2 L+B4 L+B5 H T/2
+D B+A3 B+D4 L+Ab4 L+Ab5 P T/2
+L+E3 L+Ab4 L+Ab5 P T/2
+D B+Ab3 B+D4 L+Gb4 L+Gb5 P T/4
+L+G4 L+G5 P T/4
+L+A2 L+Ab4 L+Ab5 H T/4
+L+Ab4 L+Ab5 H T/4
+D B+Ab3 B+Db4 P T/2
+L+E3 P T/2
+D B+Ab3 B+Db4 P T/2
+
+L+Ab2 L+B4 L+B5 H T/2
+D B+C3 B+B3 L+Ab4 L+Ab5 P T/2
+L+Db3 P 1
+L+Ab4 L+Ab5 H T/2
+D B+C3 B+B3 P 1
+L+Gb4 L+Gb5 H T/2
+L+E4 L+E5 P 1
+L+Gb2 H T/2
+D B+E3 B+A3 L+Db4 L+Db5 P T/2
+L+Db3 L+E4 L+E5 P T/2
+D B+E3 B+A3 L+Gb4 L+Gb5 P T/2
+L+B2 L+B4 L+B5 P T/2
+D B+Gb3 L+Db4 L+Db5 P T/2
+L+Gb2 L+E4 L+E5 P T/2
+D B+A3 B+C4 L+Gb4 L+Gb5 P T/2
+
+
+B+E2 L+Ab4 L+E4 L+E5 H T/2
+D B+Ab3 B+B3 P T/2
+L+E3 P T/2
+D B+Ab3 B+B3 P T/2
+
+L+A2 P 1
+L+B4 L+B5 H T/2
+D B+A3 B+Db4 L+Ab4 L+Ab5 P T/2
+L+E3 L+Ab4 L+Ab5 P T/2
+D B+A3 B+Db4 L+Gb4 L+Gb5 P T/2
+L+Db3 L+E4 L+E5 H T/2
+D B+B3 B+Db4 P T/2
+L+Ab2 P T/2
+D B+B3 B+Db4 P T/2
+
+L+B2 L+B4 L+B5 H T/2
+D B+A3 B+D4 L+Ab4 L+Ab5 P T/2
+L+E3 L+Ab4 L+Ab5 P T/2
+D B+Ab3 B+D4 L+Gb4 L+Gb5 P T/4
+L+G4 L+G5 P T/4
+L+A2 L+Ab4 L+Ab5 H T/4
+L+Ab4 L+Ab5 H T/4
+D B+Ab3 B+Db4 P T/2
+L+E3 P T/2
+D B+Ab3 B+Db4 P T/2
+
+L+Ab2 L+B4 L+B5 H T/2
+D B+C3 B+B3 L+Ab4 L+Ab5 P T/2
+L+Db3 P 1
+L+Ab4 L+Ab5 H T/2
+D B+C3 B+B3 P 1
+L+Gb4 L+Gb5 H T/2
+L+E4 L+E5 P 1
+L+Gb2 H T/2
+D B+E3 B+A3 L+Db4 L+Db5 P T/2
+L+Db3 L+E4 L+E5 P T/2
+D B+E3 B+A3 L+Gb4 L+Gb5 P T/2
+L+B2 L+B4 L+B5 P T/2
+D B+Gb3 L+Db4 L+Db5 P T/2
+L+Gb2 L+E4 L+E5 P T/2
+D B+A3 B+C4 L+Gb4 L+Gb5 P T/2
+
+== End ==
+L+E3 L+E4 P T/2
+D L+Db3 L+Db4 B+Gb4 B+A4 B+Db5 P T/2
+L+E3 L+E4 P T/2
+D L+Gb3 L+Gb4 B+A4 B+Db5 P T/2
+L+B3 L+B4 P T/2
+D L+Db3 L+Db4 B+Gb4 B+A4 B+Db5 P T/2
+L+E3 L+E4 P T/2
+D L+Gb3 L+Gb4 B+A4 B+Db5 P T/2
+
+L+Gb2 P 1
+L+Ab4 L+Ab5 H T/2
+D B+Gb3 B+A3 P 1
+L+Ab4 L+Ab5 H T/2
+L+Gb2 L+E4 L+E5 P T/2
+D B+Gb3 B+A3 L+Gb4 L+Gb5 P T/2
+L+B2 P 1
+L+Ab4 L+Ab5 H T/2
+D B+Eb3 B+A3 P 1
+L+Ab4 L+Ab5 H T/2
+L+B2 L+G4 L+G5 P T/2
+D B+Eb3 B+A3 L+Gb4 L+Gb5 P T/2
+
+L+E2 P 1
+L+E4 L+E5 H T/2
+D B+E3 B+Ab3 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+L+B2 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+D B+E3 B+Ab3 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+L+C3 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+D B+E3 B+Bb3 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+L+G2 L+E4 L+E5 P 1
+L+E4 L+E5 H T/2
+D B+E3 B+Bb3 P T/2
+
+L+F2 L+F4 L+A4 L+C5 L+F5 H T*3/4
+R P T/4
+L+F2 L+F4 L+A4 L+C5 L+F5 P T/3
+L+G2 L+G4 L+Bb4 L+D5 L+G5 P T/3
+L+A2 L+A4 L+C5 L+E5 L+A5 P T/3
+L+C3 L+C5 L+Eb5 L+G5 L+C6 H T/2
+L+B2 L+B4 L+D5 L+Gb5 L+B5 P T/2
+L+B2 L+B4 L+D5 L+Gb5 L+B5 H T/2
+L+A2 L+A4 L+C5 L+E5 L+A5 P T/2
+L+Ab4 L+B4 L+Eb5 L+Ab5 H T*3
+L+E1 P
+
+# implicit 0 duration (infinite)
+# at the end of the program

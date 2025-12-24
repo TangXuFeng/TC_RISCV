@@ -1,0 +1,183 @@
+#This should match your run speed
+const PROGRAM_TICKS_PER_SECOND 4000
+
+const BPM 150
+
+const TIME_SIG_TOP 4
+const TIME_SIG_BOTTOM 4
+
+#(Program ticks per minute) * (minutes per whole notes)
+const N PROGRAM_TICKS_PER_SECOND*60 * TIME_SIG_BOTTOM/BPM
+
+#Duration is messured in fractions
+#of whole notes.
+#N is length of a whole note in ticks.
+#So a quarter note would be N/4.
+
+#You can use Prog0-4 to select the
+#program(instrument) of a note
+
+const L Prog2#Lead
+const B Prog3#Bass
+const D Prog4+12#Drum
+
+#Events follow the following format:
+#Prog+Note Prog+Note Prog+Note TickDuration
+#Every event plays up to four notes,
+#then it waits the given duration,
+#then it goes to the next event.
+
+
+#Part 1
+L+E1	L+B0	B+E0	0	N/8
+0		0		B+E1	D	N/8
+L+B0	L+Ab0	B+E0	0	N/8
+L+C1	L+A0	B+E1	D	N/8
+L+D1	L+B0	B+E0	0	N/8
+L+E1	0		B+E1	D	N/16
+L+D1	0		0		D	N/16
+L+C1	L+A0	B+E0	0	N/8
+L+B0	L+Ab0	B+E1	D	N/8
+
+L+A0	L+E0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+L+C1	L+A0	B+A1	D	N/8
+L+E1	L+C1	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+D1	L+B0	B+A0	D	N/8
+L+C1	L+A0	B+A1	D	N/8
+
+L+B0	L+Ab0	B+Ab0	0	N/16
+0		L+Ab0	0		0	N/16
+0		L+E0	B+Ab1	D	N/8
+L+B0	L+Ab0	B+Ab0	0	N/8
+L+C1	L+A0	B+Ab1	D	N/8
+L+D1	L+B0	B+E0	0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+L+E1	L+C1	B+E0	0	N/8
+0		0		B+E1	D	N/8
+
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+0		0		B+B0	D	N/8
+0		0		B+C1	D	N/8
+
+L+D1	L+A0	B+D1	0	N/8
+0		0		B+D0	D	N/4
+L+F1	L+D1	B+D0	D	N/8
+L+A1	L+F1	0		0	N/8
+0		0		B+D0	D	N/16
+0		0		B+D0	D	N/16
+L+G1	L+E1	B+G0	0	N/8
+L+F1	L+D1	B+F0	D	N/8
+
+L+E1	L+C1	B+C0	0	N/8
+0		0		B+C1	D	N/4
+L+C1	L+A0	B+C1	D	N/8
+L+E1	L+C1	B+C0	0	N/8
+0		L+D1	B+G0	D	N/16
+0		L+C1	0		0	N/16
+L+D1	L+B0	B+G0	D	N/8
+L+C1	L+A0	0		D	N/8
+
+L+B0	L+Ab0	B+B0	0	N/8
+0		L+E0	B+B1	D	N/8
+L+B0	L+Ab0	0		0	N/8
+L+C1	L+A0	B+B1	D	N/8
+L+D1	L+B0	0		0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+L+E1	L+C1	0		0	N/8
+0		0		B+Ab1	D	N/8
+
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+0		0		B+A1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8
+
+#Part 2
+L+E1	L+C1	B+A0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+
+L+D1	L+B0	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+L+B0	L+Ab0	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	D	N/8
+0		0		B+E1	D	N/8
+
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+L+A0	L+E0	B+A0	0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+
+L+Ab0	L+E0	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+L+B0	L+Ab0	B+Ab0	0	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8
+
+L+E1	L+C1	B+A0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+0		0		B+A0	0	N/8
+0		0		B+E1	D	N/8
+
+L+D1	L+B0	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+L+B0	L+Ab0	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	D	N/8
+0		0		B+E1	D	N/8
+
+L+C1	L+A0	B+A0	0	N/8
+0		0		B+E1	D	N/8
+L+E1	L+C1	B+A0	0	N/8
+0		0		B+E1	D	N/8
+L+A1	L+E1	B+A0	0	N/8
+0		0		B+E1	D	N/16
+0		0		0		D	N/16
+L+A1	L+E1	B+A0	0	N/8
+0		0		B+E1	D	N/8
+
+L+Ab1	L+E1	B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	0	N/8
+0		0		B+E1	D	N/8
+0		0		B+Ab0	0	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8
+0		0		0		D	N/8

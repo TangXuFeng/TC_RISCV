@@ -1,0 +1,16 @@
+0x00000093  # addi x1, x0, 0
+0x00500113  # addi x2, x0, 5
+0x06400193  # addi x3, x0, 100
+
+0x0021a023  # sw   x2, 0(x3)
+0x0001a203  # lw   x4, 0(x3)
+0x00120293  # addi x5, x4, 1
+0x0051a023  # sw   x5, 0(x3)
+0x0001a283  # lw   x5, 0(x3)
+
+0x00600313  # addi x6, x0, 6
+0x00628663  # beq  x5, x6, +12 (跳到 success)
+
+0xffdff06f  # jal x0, fail (向后跳 -4 字节)
+
+0x0000006f  # success: jal x0, 0 (死循环)

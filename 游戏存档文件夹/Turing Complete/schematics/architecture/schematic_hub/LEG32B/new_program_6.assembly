@@ -1,0 +1,26 @@
+#cpus|cpu1 0 0 0
+#add|AL 0 5 0
+#ramin|AL 9 0 data_poin|0
+#ramin|AL 2 2 1
+#ramin|AL 2 3 5
+#ramout|ram_alu 5 1 7
+##IF|LESS|ram_alu|AL 1 5 32
+#ramout|sub 1 6 3
+##add|AL 0 0 3
+#ramoutbity|AL2 0 0 1
+#cpus|cpugo1 0 0 0
+
+
+#scpus|cpu1 0 0 0
+
+sleep 0 0 0
+add|AL 0 5 0
+ramin|AL 9 0 data_poin|0
+ramin|AL 2 2 1
+ramin|AL 2 3 5
+ramout|ram_alu 5 1 7
+IF|LESS|ram_alu|AL 1 5 32
+ramout|sub 1 6 3
+add|AL 0 0 3
+ramoutbity|AL2 0 0 1
+#cpus|cpugo1 0 0 0

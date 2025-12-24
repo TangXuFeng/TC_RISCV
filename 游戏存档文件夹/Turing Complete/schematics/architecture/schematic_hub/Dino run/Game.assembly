@@ -1,0 +1,857 @@
+const playerY = 202
+const moveSpeed = 5
+
+#Keys
+const space = 68
+const up_Arrow = 70
+const down_Arrow = 72
+const enter = 53
+
+#Stores the sound values
+const jumpSound = 30
+const deathSound = 111
+const pointSound = 68
+
+#The scoreDivider is a value that determines how fast the score increases
+#The higher the value the slower the score increases
+const scoreDivider = 7
+
+#Stores every sprite ID
+const background = 0
+const ground1 = 1
+const ground2 = 2
+const cloud1 = 3
+const cloud2 = 4
+const cloud3 = 5
+const cloud4 = 6
+const cloud5 = 7
+const cloud6 = 8
+const player = 10
+const obs = 11
+const num10000 = 12
+const num1000 = 13
+const num100 = 14
+const num10 = 15
+const num1 = 16
+const HI = 17
+const HInum10000 = 28
+const HInum1000 = 19
+const HInum100 = 20
+const HInum10 = 21
+const HInum1 = 22
+const gameOver = 23
+const pressEnterToStart = 24
+
+#Loads the pressEnterToStart sprite and then calls the stop function
+SPRD+LOAD+48 482*TO16+25 23*TO16+190 pressEnterToStart
+SPRD+SETPOS+48 200*TO16+265 0 pressEnterToStart
+CALL 0 0 stop
+
+label setupsprites
+#Command     Offset         Size        ID
+SPRD+LOAD+48 10000*TO16+100 160*TO16+641 background
+SPRD+LOAD+48 0*TO16+49 15*TO16+1200 ground1
+SPRD+LOAD+48 0*TO16+49 15*TO16+1200 ground2
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud1
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud2
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud3
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud4
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud5
+SPRD+LOAD+48 83*TO16+0 13*TO16+47 cloud6
+SPRD+LOAD+48 582*TO16 11*TO16+19 HI
+SPRD+LOAD+48 482*TO16+13 11*TO16+190 gameOver
+SPRD+LOAD+48 482*TO16+25 23*TO16+190 pressEnterToStart
+
+
+#Sets the position of the static sprites
+SPRD+SETPOS+48 100*TO16 0 background
+SPRD+SETPOS+48 205*TO16+1000 0 gameOver
+SPRD+SETPOS+48 110*TO16+490 0 HI
+
+label resetRegisters
+#Here, every variable gets reseted to it's start value
+
+#R0 is the ground1's x
+ADD+48 0 0 R0
+#R1 is the ground2's x
+ADD+48 1200 0 R1
+
+#R10 is the score
+ADD+48 0 0 R10
+
+#RAM(16) is the obstacle's x
+#RAM(16) being less or equal to -200 creates an obstacle
+ADD+48 16 0 R11
+ADD+48 -200 0 RAM
+
+#RAM(25) makes the gamespeed go faster and faster 
+#The higher value the value, the slower the gamespeed
+ADD+48 25 0 R11
+ADD+48 75 0 RAM
+
+#R8 is the players y position and it gets reseted every round
+ADD+48 playerY 0 R8
+
+#RAM(0) is the cloud1's x, RAM(1) is the cloud2's x and so on and so on until cloud6
+#RAM(6) is the cloud1's y, RAM(7) is the cloud2's y and so on and so on until cloud6
+#In this case R2 is like i in a for loop
+ADD+48 0 0 R2
+label setCloudX
+#Sets a random x position between 0 and 650
+ADD+32 R2 0 R11
+RANDOM+48 0 650 RAM
+ADD+32 R2 1 R2
+SL+32 R2 6 setCloudX
+
+label setCloudY
+#Sets a random y position between 100 and 200
+ADD+32 R2 0 R11
+RANDOM+48 100 200 RAM
+MUL+32 RAM TO16 RAM
+ADD+32 R2 1 R2
+SL+32 R2 12 setCloudY
+
+#The harddisk(HDD) is the highscore
+#Loads the highscore and displays it
+ADD+48 21 0 R11
+ADD+32 HDD 0 RAM
+
+#RAM(22) is for determining if the highscore or the score should be displayed(0 = score and 1 = highscore)
+#R2 is in this case for the value that gets displayed
+ADD+48 22 0 R11
+ADD+48 1 0 RAM
+ADD+32 HDD 0 R2
+CALL 0 0 displayScoreOrHighscore
+
+label loop
+#Change ground position by the moveSpeed
+#R0 is the ground1´s x
+#R1 is the ground2´s x
+SUB+32 R0 moveSpeed R0
+SUB+32 R1 moveSpeed R1
+
+#If the ground1´s x is bigger than -1200 it dosent get reset
+SB+32 R0 -1200 noResetGround1
+ADD+48 1200 0 R0
+
+label noResetGround1
+#If the ground2´s x is bigger than -1200 it dosent get reset
+SB+32 R1 -1200 noResetGround2
+ADD+48 1200 0 R1
+
+label noResetGround2
+#Here ground1 and ground2's moves to their new position
+#237 is the y-level of the ground
+#R2 is for storing values a brief time
+ADD+32 R0 237*TO16 R2
+SPRD+SETPOS+32 R2 0 ground1
+ADD+32 R1 237*TO16 R2
+SPRD+SETPOS+32 R2 0 ground2
+
+#Changes every cloud position
+#Checks if any of the clouds x position is less than -200 and also changes the x position
+#Here, R2 acts like i in a for loop
+ADD+48 0 0 R2
+label changeCloudXAndSetNewPositionIfOffScreen
+ADD+32 R2 0 R11
+#Subtracts the cloud's x by -1 so that the cloud moves to the left
+SUB+32 RAM 1 RAM
+
+#If the cloud's x is less than -200(off screen) it moves to a new location
+SBE+32 RAM -200 notOffScreen
+#Sets the x to a random value between 650 and 1300
+RANDOM+48 650 1300 RAM
+
+#Sets the y to a random value between 100 and 200
+ADD+32 R2 6 R11
+RANDOM+48 100 200 RAM
+
+#Multiplies the y variable by TO16 because the sprite display takes the first 16 bits as x and then the 16 bits after that as y
+MUL+32 RAM TO16 RAM
+
+label notOffScreen
+#Changes R2 ("i") by one
+#When R2 ("i") is less than six the "forloop" coninues and when R2("i") is bigger or equal to six teh forloop stops and the program continues
+ADD+32 R2 1 R2
+SL+32 R2 6 changeCloudXAndSetNewPositionIfOffScreen
+
+#Here R2 acts like i again and gets reset to 0
+ADD+48 0 0 R2
+
+label setPositionOfEveryCloud
+#We add 6 to R2 and store it R11 because the cloud's y is the RAM adress of x plus 6
+#We add the clouds y and the clouds x to get the position of the cloud
+ADD+32 R2 6 R11
+ADD+32 RAM 0 R3 
+ADD+32 R2 0 R11
+ADD RAM R3 R3
+
+#Adds one to R2("i") and then checks which clouds position that should get changed
+ADD+32 R2 1 R2
+SE+32 R2 1 setCloud1
+SE+32 R2 2 setCloud2
+SE+32 R2 3 setCloud3
+SE+32 R2 4 setCloud4
+SE+32 R2 5 setCloud5
+SE+32 R2 6 setCloud6
+
+label setCloud1
+SPRD+SETPOS+32 R3 0 cloud1
+CALL 0 0 setPositionOfEveryCloud
+
+label setCloud2
+SPRD+SETPOS+32 R3 0 cloud2
+CALL 0 0 setPositionOfEveryCloud
+
+label setCloud3
+SPRD+SETPOS+32 R3 0 cloud3
+CALL 0 0 setPositionOfEveryCloud
+
+label setCloud4
+SPRD+SETPOS+32 R3 0 cloud4
+CALL 0 0 setPositionOfEveryCloud
+
+label setCloud5
+SPRD+SETPOS+32 R3 0 cloud5
+CALL 0 0 setPositionOfEveryCloud
+
+label setCloud6
+SPRD+SETPOS+32 R3 0 cloud6
+
+#Fix obstacles
+#RAM(13) is the obs width and RAM(14) is the obs height
+#RAM(15) is the enemy (Cactus1 = 0, Cactus2 = 1 and so on and so on)
+#RAM(16) is the obs x and RAM(17) the obs y
+#RAM(24) is for the bird. If it's 1 the bird slows down and if it's 0 the bird moves as fast as the ground
+ADD+48 24 0 R11
+SE+32 RAM 0 IsntASlowBrid
+#Changes the moveSpeed by -1/3 and then sets a new x
+DIV+48 moveSpeed 3 R2
+SUB+16 moveSpeed R2 R2
+ADD+48 16 0 R11
+SUB RAM R2 RAM
+CALL 0 0 movedObstacle
+
+label IsntASlowBrid
+#Sets a new x
+ADD+48 16 0 R11
+SUB+32 RAM moveSpeed RAM
+
+label movedObstacle
+#If the x position is not less than -100 no obstacle is spawned
+SBE+32 RAM -100 dontSpawnNewObs
+
+#Changing the speed every time a new obstacle spawns
+#RAM(25) is for controlling the speed
+#If the obstacle already is at max speed the speed isnt changed
+ADD+48 25 0 R11
+SLE+32 RAM 0 atMaxSpeed
+SUB+32 RAM 5 RAM
+
+label atMaxSpeed
+#Sets a new obstacle x that is a random value between 700 and 900
+ADD+48 16 0 R11
+RANDOM+48 700 900 RAM
+
+#Spawns a random obstacle
+RANDOM+48 0 6 R2
+SE+32 R2 0 smallCactus
+SE+32 R2 1 bigCactus
+SE+32 R2 2 twoSmallCactuses
+SE+32 R2 3 twoBigCactuses
+SE+32 R2 4 threeSmallCactuses
+SE+32 R2 5 threeBigCactuses
+SE+32 R2 6 bird
+
+label smallCactus
+SPRD+LOAD+48 227*TO16 35*TO16+16 obs
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 16 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 35 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 0 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 213*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label bigCactus
+SPRD+LOAD+48 330*TO16 50*TO16+25 obs
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 25 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 50 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 1 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 200*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label twoSmallCactuses
+SPRD+LOAD+48 244*TO16 35*TO16+33 obs
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 33 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 35 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 2 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 213*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label twoBigCactuses
+SPRD+LOAD+48 355*TO16 50*TO16+50 obs
+
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 50 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 50 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 3 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 200*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label threeSmallCactuses
+SPRD+LOAD+48 276*TO16 35*TO16+51 obs
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 51 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 35 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 4 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 213*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label threeBigCactuses
+SPRD+LOAD+48 405*TO16 50*TO16+75 obs
+
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 75 0 RAM
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 50 0 RAM
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 5 0 RAM
+#Sets the y position
+ADD+48 17 0 R11
+ADD+48 200*TO16 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+ADD+48 0 0 RAM
+
+CALL 0 0 dontSpawnNewObs
+
+label bird
+SPRD+LOAD+48 132*TO16+5 35*TO16+46 obs
+#Sets the enemy width
+ADD+48 13 0 R11
+ADD+48 46 0 RAM
+
+#Sets the enemy height
+ADD+48 14 0 R11
+ADD+48 30 0 RAM
+
+#Sets the enemymode
+ADD+48 15 0 R11
+ADD+48 6 0 RAM
+
+#Sets the y position
+ADD+48 17 0 R11
+RANDOM+48 145 209 RAM
+MUL+32 RAM TO16 RAM
+
+#RAM(19) is the frames since last bird animation
+ADD+48 19 0 R11
+ADD+48 0 0 RAM
+
+#RAM(24) is for making the bird go slower sometimes
+ADD+48 24 0 R11
+RANDOM+48 0 1 RAM
+
+label dontSpawnNewObs
+#Checks if the enemy is a brid and if it is a bird the bird gets animated
+ADD+48 15 0 R11
+SNE+32 RAM 6 jumpHereIfenemyIsntABird
+
+#RAM(19) is for frames since last bird animation
+#Animates the bird depending on how many frames it was since the last animation
+ADD+48 19 0 R11
+ADD+32 RAM 1 RAM
+SNE+32 RAM 15 noChangeToBird1
+
+#Changes the y-level becuase the first birds center is lower in the sky
+ADD+48 17 0 R11
+DIV+32 RAM TO16 RAM
+SUB+32 RAM 5 RAM
+MUL+32 RAM TO16 RAM
+
+SPRD+LOAD+48 178*TO16 30*TO16+46 obs
+
+label noChangeToBird1
+#When RAM(19) equals 30 the first bird sprite gets loaded and RAM(19) gets reset
+ADD+48 19 0 R11
+SNE+32 RAM 30 jumpHereIfenemyIsntABird
+
+ADD+48 19 0 R11
+ADD+48 0 0 RAM
+
+#Changes the y-level becuase the second birds center is higher in the sky
+ADD+48 17 0 R11
+DIV+32 RAM TO16 RAM
+ADD+32 RAM 5 RAM
+MUL+32 RAM TO16 RAM
+
+SPRD+LOAD+48 132*TO16+5 35*TO16+46 obs
+
+label jumpHereIfenemyIsntABird
+#Sets the obstacle position
+ADD+48 17 0 R11
+ADD+32 RAM 0 R2
+ADD+48 16 0 R11
+ADD RAM R2 R2
+SPRD+SETPOS+32 R2 0 obs
+
+#Fix player run, jump and dodge animations
+#R7 is for frames since last player animation
+#R8 is for the players y position
+ADD+32 R7 1 R7
+
+KEYPRESSED 0 0 R2
+#Cheks which keys are pressed
+#Jumps if space or up arrow is pressed
+#Falls if in mid-air
+#Dodges if the down arrow is pressed
+SE+32 R2 space jumpf
+SE+32 R2 up_Arrow jumpf
+SL+32 R8 playerY jumpf
+SE+32 R2 down_Arrow dodge
+
+
+label run
+#If the player isnt jumping or doging and the player isnt mid-air the player runs
+#R4 is the width of the player and R5 the height of the player
+#RAM(18) is the players x position
+ADD+48 playerY 0 R8
+ADD+48 18 0 R11
+ADD+48 30 0 RAM
+ADD+48 44 0 R4
+ADD+48 47 0 R5
+
+#R7 is for frames since last animation
+#Depending on how many frames since the last animation the dino has the run1 or run2 sprite
+SLE+32 R7 8 run1
+SLE+32 R7 16 run2
+
+#If the frames since last animation is bigger than 10 the animation is done and R7 gets reset back to zero
+SB+32 R7 R2 resetR7
+CALL 0 0 changeScore
+
+label run1
+#Loads runSprite1 and sets the position
+MUL+32 R8 TO16 R2
+ADD+48 18 0 R11
+ADD R2 RAM R2
+SPRD+LOAD+48 763*TO16+0 47*TO16+44 player
+SPRD+SETPOS+32 R2 0 player
+CALL 0 0 changeScore
+
+label run2
+#Loads runSprite1 and sets the position
+MUL+32 R8 TO16 R2
+ADD+48 18 0 R11
+ADD R2 RAM R2
+SPRD+LOAD+48 807*TO16+0 47*TO16+44 player
+SPRD+SETPOS+32 R2 0 player
+CALL 0 0 changeScore
+
+label resetR7
+ADD+48 0 0 R7
+CALL 0 0 changeScore
+
+label jumpf
+#R9 is the force the player jumpsup/falls down in
+ADD+48 18 0 R11
+ADD+48 30 0 RAM
+#If the player isnt mid-air the player jumps up
+SBE+32 R8 playerY jumpUp
+
+#When the player is mid-air the player falls
+SUB+32 R9 1 R9
+DIV+32 R9 2 R2
+SUB R8 R2 R8
+MUL+32 R8 TO16 R2
+ADD R2 RAM R2
+SPRD+SETPOS+32 R2 0 player
+CALL 0 0 changeScore
+
+label jumpUp
+#Plays the jump sound
+SOUND+PLAY+48 jumpSound -20 1
+ADD+48 playerY 0 R8
+
+#The height(R5) is decreased so that the collisions acts a little better
+ADD+48 30 0 R4
+ADD+48 30 0 R5
+
+#Sets the jump height
+ADD+48 18 0 R9
+SUB R8 R9 R8
+MUL+32 R8 TO16 R2
+ADD R2 RAM R2
+SPRD+LOAD+48 675*TO16+0 47*TO16+44 player
+SPRD+SETPOS+32 R2 0 player
+CALL 0 0 changeScore
+
+label dodge
+#Sets the player y
+ADD+48 playerY 18 R8
+ADD+48 59 0 R4
+ADD+48 30 0 R5
+
+#Makes different animations depending on how long it was since the last animation
+SLE+32 R7 8 dodge1f
+SLE+32 R7 16 dodge2f
+SB+32 R7 16 resetR7
+CALL 0 0 changeScore
+
+label dodge1f
+#Loads the dodge1 sprite and sets the position
+MUL+32 R8 TO16 R2
+ADD+48 18 0 R11
+ADD+48 30 0 RAM
+ADD R2 RAM R2
+SPRD+LOAD+48 939*TO16+17 30*TO16+59 player
+SPRD+SETPOS+32 R2 0 player
+CALL 0 0 changeScore
+
+label dodge2f
+#Loads the dodge2 sprite and sets the position
+MUL+32 R8 TO16 R2
+ADD+48 18 0 R11
+ADD+48 31 0 RAM
+ADD R2 RAM R2
+SPRD+LOAD+48 999*TO16+17 30*TO16+59 player
+SPRD+SETPOS+32 R2 0 player
+
+label changeScore
+#Changes the score
+ADD+32 R10 1 R10
+
+#R3 is in this case for cheking if the score sound should be played
+MUL+48 scoreDivider 100 R3 
+DIVR R10 R3 R3
+SNE+32 R3 0 noSound
+SOUND+PLAY+48 pointSound 0 1
+label noSound
+
+#Divides the score because it's going up to fast
+#R2 is for the value that want to display
+DIV+32 R10 scoreDivider R2
+SLE+32 R2 100 displayScoreOrHighscore
+#Makes animation if reach 100, 200, 300 and so on
+DIVR+32 R2 100 R3
+SE+32 R3 0 displayScoreOrHighscore
+SLE+32 R3 39 animateScoreWhenReach100
+
+label displayScoreOrHighscore
+#Sets the 10000 number
+#RAM(22) is for highscore or score(0 = score and 1 = highScore)
+ADD+48 22 0 R11
+DIV+32 R2 10000 R3
+MUL+32 R3 10 R3
+ADD+32 R3 482 R3
+MUL+32 R3 TO16 R3
+
+SE+32 RAM 0 changeScore10000
+SPRD+LOAD+32 R3 11*TO16+10 HInum10000
+SPRD+SETPOS+48 110*TO16+520 0 HInum10000
+CALL 0 0 noChangeScore10000
+
+label changeScore10000
+SPRD+LOAD+32 R3 11*TO16+10 num10000
+SPRD+SETPOS+48 110*TO16+580 0 num10000
+
+label noChangeScore10000
+#Sets the 1000 number
+DIVR+32 R2 10000 R3
+DIV+32 R3 1000 R3
+MUL+32 R3 10 R3
+ADD+32 R3 482 R3
+MUL+32 R3 TO16 R3
+
+SE+32 RAM 0 changeScore1000
+
+SPRD+LOAD+32 R3 11*TO16+10 HInum1000
+SPRD+SETPOS+48 110*TO16+530 0 HInum1000
+CALL 0 0 noChangeScore1000
+
+label changeScore1000
+SPRD+LOAD+32 R3 11*TO16+10 num1000
+SPRD+SETPOS+48 110*TO16+590 0 num1000
+
+label noChangeScore1000
+#Sets the 100 number
+DIVR+32 R2 10000 R3
+DIVR+32 R3 1000 R3
+DIV+32 R3 100 R3
+MUL+32 R3 10 R3
+ADD+32 R3 482 R3
+MUL+32 R3 TO16 R3
+
+SE+32 RAM 0 changeScore100
+
+SPRD+LOAD+32 R3 11*TO16+10 HInum100
+SPRD+SETPOS+48 110*TO16+540 0 HInum100
+CALL 0 0 noChangeScore100
+
+label changeScore100
+SPRD+LOAD+32 R3 11*TO16+10 num100
+SPRD+SETPOS+48 110*TO16+600 0 num100
+label noChangeScore100
+
+#Sets the 10 number
+DIVR+32 R2 10000 R3
+DIVR+32 R3 1000 R3
+DIVR+32 R3 100 R3
+DIV+32 R3 10 R3
+MUL+32 R3 10 R3
+ADD+32 R3 482 R3
+MUL+32 R3 TO16 R3
+SE+32 RAM 0 changeScore10
+
+SPRD+LOAD+32 R3 11*TO16+10 HInum10
+SPRD+SETPOS+48 110*TO16+550 0 HInum10
+CALL 0 0 noChangeScore10
+
+label changeScore10
+SPRD+LOAD+32 R3 11*TO16+10 num10
+SPRD+SETPOS+48 110*TO16+610 0 num10
+label noChangeScore10
+#Sets the 1 number
+
+DIVR+32 R2 10000 R3
+DIVR+32 R3 1000 R3
+DIVR+32 R3 100 R3
+DIVR+32 R3 10 R3
+DIV+32 R3 1 R3
+MUL+32 R3 10 R3
+ADD+32 R3 482 R3
+MUL+32 R3 TO16 R3
+
+SE+32 RAM 0 changeScore1
+SPRD+LOAD+32 R3 11*TO16+10 HInum1
+SPRD+SETPOS+48 110*TO16+560 0 HInum1
+CALL 0 0 noChangeScore1
+
+label changeScore1
+SPRD+LOAD+32 R3 11*TO16+10 num1
+SPRD+SETPOS+48 110*TO16+620 0 num1
+label noChangeScore1
+CALL 0 0 checkCollisions
+
+label animateScoreWhenReach100
+#RAM(23) is for checking if the score is animating(0 = not animating and 1 = animating)
+#Hides the text or shows it depending on which number the score has
+ADD+48 23 0 R11
+ADD+48 1 0 RAM
+ADD+48 5 0 R2
+SLE R3 R2 animationCheckTwo
+ADD+48 15 0 R2
+SLE R3 R2 animationCheckTwo
+ADD+48 25 0 R2
+SLE R3 R2 animationCheckTwo
+ADD+48 35 0 R2
+SLE R3 R2 animationCheckTwo
+CALL 0 0 showNumbers
+label animationCheckTwo
+SUB+32 R2 5 R2
+SBE R3 R2 hideNumbers
+CALL 0 0 showNumbers
+
+label hideNumbers
+#Hides the text
+SPRD+SETPOS+48 1000 0 num1
+SPRD+SETPOS+48 1000 0 num10
+SPRD+SETPOS+48 1000 0 num100
+SPRD+SETPOS+48 1000 0 num1000
+SPRD+SETPOS+48 1000 0 num10000
+ADD+48 0 0 R2
+
+CALL 0 0 compensateForTicksUsedToDoAnimation
+
+label showNumbers
+#Showes the text
+SPRD+SETPOS+48 110*TO16+620 0 num1
+SPRD+SETPOS+48 110*TO16+610 0 num10
+SPRD+SETPOS+48 110*TO16+600 0 num100
+SPRD+SETPOS+48 110*TO16+590 0 num1000
+SPRD+SETPOS+48 110*TO16+580 0 num10000
+ADD+48 0 0 R2
+
+label compensateForTicksUsedToDoAnimation
+#Because the score search got skipped the game goes faster and therefore the program waits a little bit
+ADD+32 R2 1 R2
+SLE+32 R2 20 compensateForTicksUsedToDoAnimation
+
+label checkCollisions
+
+ADD+48 25 0 R11
+ADD+32 RAM 0 R3
+
+label Wait
+#We wait so that the game speed goes faster and faster
+SUB+32 R3 1 R3
+SB+32 R3 0 Wait
+ADD+48 22 0 R11
+ADD+48 0 0 RAM
+#R4 is the players width and R5 the height
+#RAM(18) is the player's x position and R8 is the player's y position
+#RAM(16) is the obstacles's x position and RAM(17) the obstacle's y position
+#RAM(13) is the obstacles's width and RAM(14) the obstacle's y height
+
+#Checks if the players x + the players width is bigger than the obstacles x
+ADD+48 18 0 R11
+ADD RAM R4 R2
+ADD+48 16 0 R11
+SLE R2 RAM loop
+
+#Checks if the players x is bigger than the obstacles x + the obstacles width
+ADD+32 RAM 0 R2
+ADD+48 13 0 R11
+ADD R2 RAM R2
+ADD+48 18 0 R11
+SB RAM R2 loop
+
+#Checks if the players y + the players height is less than the obstacles y
+ADD R8 R5 R2
+ADD+48 17 0 R11
+DIV+32 RAM TO16 R3
+SL R2 R3 loop
+
+#Checks if the players y is bigger than the obstacles y + the obstacles height
+ADD+48 17 0 R11
+ADD+32 RAM 0 R2
+DIV+32 R2 TO16 R2
+ADD+48 14 0 R11
+ADD RAM R2 R2
+SL R2 R8 loop
+
+#Gameover
+#Shows the gameOver sprite
+SPRD+SETPOS+48 150*TO16+235 0 gameOver
+ADD+48 23 0 R11
+
+#Checks if the text is getting animated
+#When it is animating the score gets calculated and displayed
+SNE+32 RAM 1 textIsntAnimating
+ADD+48 0 0 RAM
+DIV+32 R10 scoreDivider R2
+CALL 0 0 displayScoreOrHighscore
+
+label textIsntAnimating
+#Sets a new highscore if needed
+DIV+32 R10 scoreDivider R10
+ADD+48 21 0 R11
+SLE R10 RAM dontChangeHighscore
+ADD+32 R10 0 RAM
+ADD+32 RAM 0 HDD
+ADD+32 RAM 0 R2
+ADD+48 22 0 R11
+ADD+48 1 0 RAM
+CALL 0 0 displayScoreOrHighscore
+
+label dontChangeHighscore
+#Checks if the player is dodging and if it is the players y position gets changed
+SLE+32 R8 playerY isntDodging
+ADD+48 playerY 0 R8
+
+label isntDodging
+#Shows the playerDead sprite and plays the death sound
+MUL+32 R8 TO16 R2
+ADD+32 R2 30 R2
+SPRD+LOAD+48 851*TO16+0 47*TO16+46 player
+SPRD+SETPOS+32 R2 0 player
+SOUND+PLAY+48 deathSound 0 4
+ADD+48 0 0 R3
+CALL 0 0 showPressEnterToStartText
+
+label stop
+#R3 is frames since last animation for the pressEnterToStatrText
+#Depending on the frames since the last animation the text gets hidden or shown
+ADD+32 R3 1 R3
+SE+32 R3 1200 hidePressEnterToStartText
+SE+32 R3 2399 showPressEnterToStartText
+SNE+32 R3 2400 startTextAnimationDone
+ADD+48 0 0 R3
+CALL 0 0 startTextAnimationDone
+
+label showPressEnterToStartText
+#Shows the startText
+SPRD+SETPOS+48 200*TO16+265 0 pressEnterToStart
+CALL 0 0 startTextAnimationDone
+
+label hidePressEnterToStartText
+#Hides the  pressEnterToStartText
+SPRD+SETPOS+48 1000 0 pressEnterToStart
+
+label startTextAnimationDone
+#Checks if the Enter key is pressed and if it is it restarts the game
+KEYPRESSED+48 0 0 R2
+SE+32 R2 enter restart
+CALL 0 0 stop
+
+label restart
+#When the eneter key gets pressed the gameOver sprite and the pressEnterToStart sprite get hidden
+SPRD+SETPOS+48 1000 0 pressEnterToStart
+SPRD+SETPOS+48 1000 0 gameOver
+CALL 0 0 setupsprites

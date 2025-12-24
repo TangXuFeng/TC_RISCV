@@ -1,0 +1,79 @@
+const i r1
+const j r2
+const left r4
+const right r5
+const sum r3
+
+#int[] mem = {4, 6, 1, 4, 6, 5, 1, 4, 1, 2, 6, 5, 1, 4, 2};
+or|i1|i2 0 0 i
+label store_0
+store i io r0
+add|i1 1 i i
+jne|i1 16 i store_0
+
+#int left, right;
+or|i1|i2 0 0 left
+or|i1|i2 0 0 right
+
+	#int sum=0;
+or|i1|i2 0 0 sum
+
+or|i1|i2 0 1 i
+#for (int i = 1; i < 15; i++) {
+label for_0
+
+    #left = 0;
+or|i1|i2 0 0 left
+    #right = 0;
+or|i1|i2 0 0 right
+
+
+
+or|i1|i2 0 0 j
+    #for (int j = 0; j < 16; j++) {
+label for_1
+
+
+        #if (j < i) left = left < mem[j] ? mem[j] : left;
+jae j i end_0
+load j 0 r0
+jae left r0 end_0
+or|i1 0 r0 left
+label end_0
+		
+		
+        #if (j > i) right = right < mem[j] ? mem[j] : right;
+jbe j i end_1
+load j 0 r0
+jae right r0 end_1
+or|i1 0 r0 right
+label end_1
+
+    #}
+add|i1 1 j j
+jne|i1 16 j for_1
+	
+	
+    #left = left < right ? left : right;
+jb left right end_3
+or|i1 0 right left
+label end_3
+
+    #left = left > mem[i] ? left - mem[i] : 0;
+load i 0 r0
+jbe left r0 end_4
+sub left r0 left
+je 0 0 end_5
+label end_4
+or|i1|i2 0 0 left
+label end_5
+
+	#sum+=left
+add sum left sum
+	
+#}
+add|i1 1 i i
+jne|i1 15 i for_0
+0 0 0 0
+#System.out.println(sum);
+or|i1 0 sum io

@@ -1,0 +1,17 @@
+16 cp02
+label loop
+add
+l2 jz
+cp31
+cp3b
+cpa3
+l2 jnz
+loop jmp
+
+label l2
+1 cp02
+label l2a
+sub
+cp31
+cp3b
+l2a jmp

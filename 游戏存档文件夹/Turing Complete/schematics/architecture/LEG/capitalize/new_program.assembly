@@ -1,0 +1,12 @@
+sub|i2 io 32 io
+label l0
+or|i1 0 io r0
+
+je|i1 32 r0 l1
+or|i1 0 r0 io
+je 0 0 l0
+
+label l1
+or|i1 0 r0 io
+sub|i2 io 32 io
+je 0 0 l0

@@ -1,0 +1,22 @@
+int input[] = {3, 5, 0, 3, 5, 4, 0, 3, 0, 1, 5, 4, 5, 0, 3, 1};
+
+int memory[256];
+
+ int sum=0;
+ int max=0;
+ for (int i = 0; i < 16; i++) {
+	memory[i]=input[i];
+	max=max<memory[i]?memory[i]:max;
+	memory[16+i]=max;
+	//printf("%d\t",max);
+ }
+ 
+ //printf("\n");
+ max=0;
+ for(int i=15;i>=0;i--){
+	max=max<memory[i]?memory[i]:max;
+	sum+=(max<memory[16+i]?max:memory[16+i])-memory[i];
+	//printf("%d\t",(max<memory[16+i]?max:memory[16+i])-memory[i]);
+ }
+ 
+ printf("\n%d\n",sum);

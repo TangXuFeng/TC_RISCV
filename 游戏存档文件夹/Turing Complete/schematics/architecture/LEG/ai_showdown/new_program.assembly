@@ -1,0 +1,4 @@
+label start
+sub|i2 io 1 r0#场上留下1+4x张牌让机器人拿
+and|i1 3 r0 io
+je r0 r0 start

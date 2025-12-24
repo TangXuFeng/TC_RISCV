@@ -1,0 +1,6 @@
+ramin|AL 2 3 0
+
+IF|LESS|AL 2 3 16
+IF|EQUAL|AL 2 3 14
+add|AL 2 2 1
+IF|EQUAL|AL2 1 4 0

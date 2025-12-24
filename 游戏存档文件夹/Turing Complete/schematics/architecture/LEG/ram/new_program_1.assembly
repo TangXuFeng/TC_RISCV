@@ -1,0 +1,16 @@
+or|i1|i2 0 0 r0
+
+label l1
+
+store r0 io r5
+
+add|i2 r0 1 r0
+jb|i2 r0 32 l1
+
+or|i1|i2 0 0 r0
+
+label l2
+load r0 r0 io
+
+add|i2 r0 1 r0
+jb|i2 r0 32 l2

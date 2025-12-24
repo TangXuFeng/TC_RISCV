@@ -1,0 +1,19 @@
+#temp1=in
+or|i1 0 io r0
+
+label start
+
+#temp1=seed xor(seed shr 1)
+shr|i2 r0 1 r1
+xor r0 r1 r0
+#temp2=temp1 xor(temp1 shl 1)
+shl|i2 r0 1 r1
+xor r0 r1 r0
+
+#next_seed=temp2 xor (temp2 shr 2)
+shr|i2 r0 2 r1
+xor r0 r1 r0
+
+and|i1 3 r0 io
+
+je 0 0 start

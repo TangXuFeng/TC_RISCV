@@ -1,0 +1,3 @@
+sub|i2 io 1 r0
+and|i2 r0 0b11 io
+je r0 r0 0

@@ -1,0 +1,73 @@
+const MOV 0b10000000
+
+const R0L 0b00000000
+const R1L 0b00001000
+const R2L 0b00010000
+const R3L 0b00011000
+const R4L 0b00100000
+const R5L 0b00101000
+const R6L 0b00110000
+
+const R0R 0b00000000
+const R1R 0b00000001
+const R2R 0b00000010
+const R3R 0b00000011
+const R4R 0b00000100
+const R5R 0b00000101
+const R6R 0b00000110
+
+const OR   0b01000000
+const NAND 0b01000001
+const NOR  0b01000010
+const AND  0b01000011
+const ADD  0b01000100
+const SUB  0b01000101
+
+
+const JZ  0b11000001
+const JNZ 0b11000101
+const JMP 0b11000100
+
+
+label start
+MOV|R6L|R1R 
+1 
+MOV|R0L|R2R  
+SUB 
+wall 
+JZ#判断是不是墙
+
+4 
+MOV|R0L|R6R 
+#不是墙
+1 
+MOV|R0L|R6R  
+MOV|R6L|R1R 
+2 
+MOV|R0L|R6R 
+start  
+JMP
+
+label wall#是墙
+0 
+MOV|R0L|R6R 
+4 
+MOV|R0L|R6R 
+#如果是不是墙跳过左转
+MOV|R6L|R1R  
+1 
+MOV|R0L|R2R  
+SUB
+next 
+JNZ
+0
+MOV|R0L|R6R 
+
+
+label next
+1 
+MOV|R0L|R6R 
+2 
+MOV|R0L|R6R 
+start 
+JMP
