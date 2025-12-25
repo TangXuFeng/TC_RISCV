@@ -54,7 +54,9 @@ riscv(
 标记/-是不准备实现的
 标记?的是已经实现,但是被禁用的,都是RV32M
 嗯,如果你的综合器真的能做出来这东西的话,可以在ALU中启用
+
 ```
+
 add      x[rd] = x[rs1] + x[rs2]
 addi     x[rd] = x[rs1] + sext(immediate)
 and      x[rd] = x[rs1] & x[rs2]
@@ -108,7 +110,9 @@ xori     x[rd] = x[rs1] ˆ sext(immediate)
 /-csrrwi
 /-csrrsi
 /-csrrci
+
 ```
+
 </pre>
 
 </details>
