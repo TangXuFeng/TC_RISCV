@@ -368,7 +368,7 @@ static void second_pass(FILE *out) {
                 !strcmp(mn,"jalr")||
                 !strcmp(mn,"lb")||!strcmp(mn,"lh")||!strcmp(mn,"lw")||
                 !strcmp(mn,"lbu")||!strcmp(mn,"lhu")||!strcmp(mn,"slli")||
-                !strcmp(nm,"srli")
+                !strcmp(mn,"srli")
                 ) {
 
             int rd, rs1, imm, funct3, opcode;
