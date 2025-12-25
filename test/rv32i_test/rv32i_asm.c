@@ -7,6 +7,7 @@
 #define MAX_LABELS 2048
 #define MAX_LINE_LEN 256
 int debug=0;
+int line_2=0;
 typedef struct {
     char name[64];
     unsigned addr;
@@ -52,10 +53,12 @@ static int find_label(const char *name) {
 
 static void add_label(const char *name, unsigned addr) {
     if (g_label_count >= MAX_LABELS) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Too many labels\n");
         exit(1);
     }
     if (find_label(name) >= 0) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Duplicate label: %s\n", name);
         exit(1);
     }
@@ -66,12 +69,14 @@ static void add_label(const char *name, unsigned addr) {
 }
 
 static int parse_reg(const char *tok) {
-    if (tok[0] != 'x' && tok[0] != 'X') {
+    if (tok[0] != 'x' && tok[0] != 'X') { 
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Bad register: %s\n", tok);
         exit(1);
     }
     int n = atoi(tok+1);
-    if (n < 0 || n > 31) {
+    if (n < 0 || n > 31) { 
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Register out of range: %s\n", tok);
         exit(1);
     }
@@ -111,6 +116,7 @@ static unsigned encode_r(int rd, int rs1, int rs2, int funct3, int funct7, int o
 
 static unsigned encode_i(int rd, int rs1, int imm, int funct3, int opcode) {
     if (imm < -2048 || imm > 2047) { 
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "I-type immediate out of range: %d\n", imm); 
         exit(1); 
     }
@@ -124,6 +130,7 @@ static unsigned encode_i(int rd, int rs1, int imm, int funct3, int opcode) {
 
 static unsigned encode_s(int rs1, int rs2, int imm, int funct3, int opcode) {
     if (imm < -2048 || imm > 2047) { 
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "S-type immediate out of range: %d\n", imm); 
         exit(1); 
     }
@@ -140,10 +147,12 @@ static unsigned encode_s(int rs1, int rs2, int imm, int funct3, int opcode) {
 
 static unsigned encode_b(int rs1, int rs2, int offset, int funct3, int opcode) {
     if (offset & 1) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Branch offset not aligned: %d\n", offset);
         exit(1);
     }
     if (offset < -4096 || offset > 4094) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Branch offset out of range: %d\n", offset); 
         exit(1); 
     }
@@ -165,6 +174,7 @@ static unsigned encode_b(int rs1, int rs2, int offset, int funct3, int opcode) {
 
 static unsigned encode_u(int rd, int imm, int opcode) {
     if (imm & 0xfff) { 
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "U-type immediate must be 20-bit aligned: 0x%x\n", imm);
         exit(1);
     }
@@ -174,10 +184,13 @@ static unsigned encode_u(int rd, int imm, int opcode) {
 
 static unsigned encode_j(int rd, int offset, int opcode) {
     if (offset & 1) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "JAL offset not aligned: %d\n", offset);
         exit(1);
     }
     if (offset < -(1<<20) || offset > ((1<<20)-2)) { 
+        printf("# %s\n", g_lines[line_2].text);
+
         fprintf(stderr, "JAL offset out of range: %d\n", offset); 
         exit(1);
     }
@@ -199,6 +212,7 @@ static unsigned encode_j(int rd, int offset, int opcode) {
 static unsigned get_label_addr(const char *name) {
     int idx = find_label(name);
     if (idx < 0) {
+        printf("# %s\n", g_lines[line_2].text);
         fprintf(stderr, "Unknown label: %s\n", name);
         exit(1);
     }
@@ -228,6 +242,8 @@ static int is_label_def(const char *line, char *out_name) {
 static void parse_mem_operand(const char *tok, int *out_imm, int *out_rs) {
     const char *paren = strchr(tok, '(');
     if (!paren) {
+        printf("# %s\n", g_lines[line_2].text);
+
         fprintf(stderr, "Bad mem operand: %s\n", tok);
         exit(1);
     }
@@ -239,6 +255,8 @@ static void parse_mem_operand(const char *tok, int *out_imm, int *out_rs) {
     const char *reg_str = paren + 1;
     const char *end_paren = strchr(reg_str, ')');
     if (!end_paren) {
+        printf("# %s\n", g_lines[line_2].text);
+
         fprintf(stderr, "Bad mem operand: %s\n", tok);
         exit(1);
     }
@@ -296,6 +314,7 @@ static void first_pass(FILE *fp) {
 
 static void second_pass(FILE *out) {
     for (int i = 0; i < g_line_count; ++i) {
+        line_2=i;
         char line_buf[MAX_LINE_LEN];
         strncpy(line_buf, g_lines[i].text, MAX_LINE_LEN-1);
         trim(line_buf);
@@ -348,7 +367,9 @@ static void second_pass(FILE *out) {
                 !strcmp(mn,"xori")||!strcmp(mn,"slti")||!strcmp(mn,"sltiu")||
                 !strcmp(mn,"jalr")||
                 !strcmp(mn,"lb")||!strcmp(mn,"lh")||!strcmp(mn,"lw")||
-                !strcmp(mn,"lbu")||!strcmp(mn,"lhu")) {
+                !strcmp(mn,"lbu")||!strcmp(mn,"lhu")||!strcmp(mn,"slli")||
+                !strcmp(nm,"srli")
+                ) {
 
             int rd, rs1, imm, funct3, opcode;
 
@@ -379,9 +400,11 @@ static void second_pass(FILE *out) {
                 opcode = 0x13;
 
                 if(!strcmp(mn,"addi"))funct3=0;
+                if(!strcmp(mn,"slli"))funct3=1;
                 if(!strcmp(mn,"slti"))funct3=2;
                 if(!strcmp(mn,"sltiu"))funct3=3;
                 if(!strcmp(mn,"xori"))funct3=4;
+                if(!strcmp(mn,"srli"))funct3=5;
                 if(!strcmp(mn,"ori"))funct3=6;
                 if(!strcmp(mn,"andi"))funct3=7;
             }

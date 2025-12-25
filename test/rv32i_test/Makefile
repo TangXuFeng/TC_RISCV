@@ -9,6 +9,11 @@ all: $(TARGET)
 $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
 
+run: $(TARGET)
+	./$(TARGET) input.s output.hex
+
+debug: $(TARGET)
+	./$(TARGET) input.s output.hex debug
+
 clean:
 	rm -f $(TARGET)
-

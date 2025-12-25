@@ -1,0 +1,68 @@
+# I-type pc=0x00000000 rd=1 rs1=0 imm=123 (0x7b) funct3=0 opcode=0x13
+# addi x1, x0, 123
+0x07b00093
+
+# R-type pc=0x00000004 rd=31 rs1=0 rs2=1 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x1
+0x00100fb3
+
+# I-type pc=0x00000008 rd=2 rs1=0 imm=200 (0xc8) funct3=0 opcode=0x13
+# addi x2, x0, 200
+0x0c800113
+
+# R-type pc=0x0000000c rd=3 rs1=1 rs2=2 funct3=0 funct7=0x0 opcode=0x33
+# add  x3, x1, x2
+0x002081b3
+
+# R-type pc=0x00000010 rd=31 rs1=0 rs2=3 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x3
+0x00300fb3
+
+# I-type pc=0x00000014 rd=0 rs1=0 imm=0 (0x0) funct3=0 opcode=0x13
+# addi x0, x0, 0
+0x00000013
+
+# R-type pc=0x00000018 rd=31 rs1=0 rs2=31 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x31
+0x01f00fb3
+
+# I-type pc=0x0000001c rd=4 rs1=3 imm=240 (0xf0) funct3=7 opcode=0x13
+# andi x4, x3, 0xF0
+0x0f01f213
+
+# R-type pc=0x00000020 rd=31 rs1=0 rs2=4 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x4
+0x00400fb3
+
+# I-type pc=0x00000024 rd=5 rs1=4 imm=15 (0xf) funct3=6 opcode=0x13
+# ori  x5, x4, 0x0F
+0x00f26293
+
+# R-type pc=0x00000028 rd=31 rs1=0 rs2=5 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x5
+0x00500fb3
+
+# I-type pc=0x0000002c rd=6 rs1=0 imm=-1 (0xfff) funct3=0 opcode=0x13
+# addi x6, x0, -1
+0xfff00313
+
+# I-type pc=0x00000030 rd=7 rs1=0 imm=1 (0x1) funct3=0 opcode=0x13
+# addi x7, x0, 1
+0x00100393
+
+# R-type pc=0x00000034 rd=8 rs1=6 rs2=7 funct3=2 funct7=0x0 opcode=0x33
+# slt  x8, x6, x7
+0x00732433
+
+# R-type pc=0x00000038 rd=31 rs1=0 rs2=8 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x8
+0x00800fb3
+
+# I-type pc=0x0000003c rd=9 rs1=8 imm=3 (0x3) funct3=1 opcode=0x13
+# slli x9, x8, 3
+0x00341493
+
+# R-type pc=0x00000040 rd=31 rs1=0 rs2=9 funct3=0 funct7=0x0 opcode=0x33
+# add  x31, x0, x9
+0x00900fb3
+
