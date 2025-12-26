@@ -42,27 +42,29 @@ module executor    (
         ,.alu_op(alu_op)
         ,.alu_result(alu_result)
     );
-
-
+    wire [31:0] tmp;
     always @(*) begin
         write_data_sig=1'b0;//除非写入内存,否则不应该是1
         alu_a = rs1_data;//基本都是rs1
         alu_b = rs2_data;//少数情况下是immediate或者其它
         rd_data = alu_result;//大部分都是alu的结果
-        alu_op = {1'b0,funct7==7'b0000001,funct7==7b'0100000,funct3};//默认提供32'b0
+        alu_op = {1'b0,funct7==7'b0000001,funct7==7'b0100000,funct3};//默认提供32'b0
         address = 32'b0;
         write_data = 32'b0;
 
         if(opcode_decode[0])begin
             // LOAD
             alu_b   = immediate;
-            alu_op = {1'b0,funct7==7'b0000001,funct7==7b'0100000,3'b000};
-            address = alu_result;
-            if(f3[0]) rd_data = {{24{read_data[7]}}, read_data[7:0]}; // LB
-            if(f3[1]) rd_data = {{16{read_data[15]}}, read_data[15:0]}; // LH
+            alu_op = {1'b0,funct7==7'b0000001,funct7==7'b0100000,3'b000};
+            address = alu_result & ~ 32'b11;
+            if(f3[0]==1'b0) tmp = read_data >> alu_result[1:0];
+            if(f3[0]==1'b1) tmp = read_data >> alu_result[1];
+            tmp = read_data>>alu_result[1:0];
+            if(f3[0]) rd_data = {{24{read_data[7]}}, tmp[7:0]}; // LB
+            if(f3[1]) rd_data = {{16{read_data[15]}}, tmp[15:0]}; // LH
             if(f3[2]) rd_data = read_data; // LW
-            if(f3[4]) rd_data = {24'b0, read_data[7:0]}; // LBU
-            if(f3[5]) rd_data = {16'b0, read_data[15:0]}; // LHU
+            if(f3[4]) rd_data = {24'b0, tmp[7:0]}; // LBU
+            if(f3[5]) rd_data = {16'b0, tmp[15:0]}; // LHU
         end
 
 
@@ -92,10 +94,26 @@ module executor    (
 
         if(opcode_decode[8]) begin // STORE
             alu_b      = immediate;
-            address    = alu_result;
+            address    = alu_result & ~32'b11;
             write_data_sig    = 1'b1;
-            if(f3[0]) write_data = {read_data[31:8], rs2_data[7:0]}; // SB
-            if(f3[1]) write_data = {read_data[31:16], rs2_data[15:0]}; // SH
+            alu_op = {1'b0,funct7==7'b0000001,funct7==7b'0100000,3'b000};
+
+            if(f3[0])begin
+
+                write_data = alu_result[1:0]==2'b0?
+                             {read_data[31:8], rs2_data[7:0]} // SB
+                             :alu_result[1:0]==2'b1?{read_data[31:16], rs2_data[7:0],read_data[7:0]}
+                             :alu_result[1:0]==2'b10?{read_data[31:24], rs2_data[7:0],read_data[15:8]}
+                             :alu_result[1:0]==2'b11?{rs2_data[7:0],read_data[23:16]}
+                                                  :32'b0;
+            end
+            if(f3[1])begin
+                write_data = alu_result[1]==1'b0?
+                             {read_data[31:16], rs2_data[15:0]} // SB
+                             :alu_result[1]==1'b1?{rs2_data[15:0],read_data[15:0]}
+                                                  :32'b0;
+ 
+            end
             if(f3[2]) write_data = rs2_data; // SW
         end
 
@@ -113,7 +131,7 @@ module executor    (
         if(opcode_decode[24]) begin // Branch
             alu_op = {1'b1,funct7==7'b0000001,funct7==7b'0100000,funct3};
 
-            
+
             if(alu_result[0]) pc_next = pc+immediate[31:1];
         end
 

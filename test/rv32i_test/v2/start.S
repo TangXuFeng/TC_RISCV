@@ -9,6 +9,7 @@ _start:
 main:
 
 addi x10,x10,0x1
+sw x10, (x10)
 beq x10,x11,end
 j main
 

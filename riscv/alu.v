@@ -11,25 +11,6 @@ module alu #(
     //Ìõ¼þÅÐ¶Ï1'b1,funct7[0]  ,funct7[5],funct3[2:0]
 
 
-    parameter alu_add=  5'b00000;
-    parameter alu_sll=  5'b00001;
-    parameter alu_xor=  5'b00100;
-    parameter alu_srl=  5'b00101;
-    parameter alu_or=   5'b00110;
-    parameter alu_and=  5'b00111;
-
-    parameter alu_sub=5'b01000;
-    parameter alu_sra=  5'b01101;
-
-
-    parameter alu_mul=5'b10000;
-    parameter alu_mulh=5'b10001;
-    parameter alu_mulhsu=5'b10010;
-    parameter alu_mulhu=5'b10011;
-    parameter alu_div=5'b10100;
-    parameter alu_divu=5'b10101;
-    parameter alu_rem=5'b10110;
-    parameter alu_remu=5'b10111;
 
     reg [63:0] tmp;
 
