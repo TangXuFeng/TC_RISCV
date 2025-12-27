@@ -62,8 +62,6 @@ bgeu     if (rs1 ≥u rs2) pc += sext(offset)
 blt      if (rs1 <s rs2) pc += sext(offset)
 bltu     if (rs1 <u rs2) pc += sext(offset)
 bne      if (rs1 ̸= rs2) pc += sext(offset)
-div      x[rd] = x[rs1] ÷s x[rs2]
-divu     x[rd] = x[rs1] ÷u x[rs2]
 ebreak   RaiseException(Breakpoint)
 ecall    RaiseException(EnvironmentCall)
 jal      x[rd] = pc+4; pc += sext(offset)
@@ -109,6 +107,10 @@ csrrc
 csrrwi
 csrrsi
 csrrci
+div      x[rd] = x[rs1] ÷s x[rs2]
+divu     x[rd] = x[rs1] ÷u x[rs2]
+rem	     x[rd] = x[rs1] %s x[rs2]
+remu     x[rd] = x[rs1] %u x[rs2]
 mulh     x[rd] = (x[rs1] s ×s x[rs2]) >>s XLEN
 mulhsu   x[rd] = (x[rs1] s ×u x[rs2]) >>s XLEN
 
