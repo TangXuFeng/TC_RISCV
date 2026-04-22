@@ -1,8 +1,0 @@
-# I-type pc=0x00000000 rd=1 rs1=1 imm=1 (0x1) funct3=0 opcode=0x13
-# addi x1, x1, 0x01
-0x00108093
-
-# J-type pc=0x00000004 rd=0 offset=-4 (0xfffffffc) opcode=0x6f
-# jal x0, start
-0x87dff06f
-
