@@ -1,48 +1,34 @@
-cmake_minimum_required(VERSION 3.20)
-project(riscv_kernel C)
+cmake_minimum_required(VERSION 3.16)
+project(kernel C ASM)
 
-message(STATUS "RISC-V ARCH = ${RISCV_ARCH}")
-message(STATUS "RISC-V ABI  = ${RISCV_ABI}")
-message(STATUS "C COMPILER  = ${CMAKE_C_COMPILER}")
-message(STATUS "OBJCOPY     = ${CMAKE_OBJCOPY}")
-message(STATUS "OBJDUMP     = ${CMAKE_OBJDUMP}")
+set(CMAKE_SYSTEM_NAME Generic)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+# 统一使用裸机工具链
+set(RISCV_PREFIX riscv64-unknown-elf)
 
-add_executable(kernel.elf kernel.c)
+set(CMAKE_C_COMPILER   ${RISCV_PREFIX}-gcc)
+set(CMAKE_CXX_COMPILER ${RISCV_PREFIX}-g++)
+set(CMAKE_ASM_COMPILER ${RISCV_PREFIX}-gcc)
+set(CMAKE_OBJCOPY      ${RISCV_PREFIX}-objcopy)
+set(CMAKE_OBJDUMP      ${RISCV_PREFIX}-objdump)
 
-# 编译阶段
-target_compile_options(kernel.elf PRIVATE
-    -march=${RISCV_ARCH}
-    -mabi=${RISCV_ABI}
-    -O3
-    -g
-    -ffreestanding
+# RISC-V 架构参数
+set(RISCV_ARCH "rv32im")
+set(RISCV_ABI  "ilp32")
+
+set(COMMON_FLAGS "-march=${RISCV_ARCH} -mabi=${RISCV_ABI} -ffreestanding -O3 -g")
+
+set(CMAKE_C_FLAGS   "${COMMON_FLAGS}")
+set(CMAKE_ASM_FLAGS "${COMMON_FLAGS}")
+
+add_executable(kernel.elf
+    startup.S
+    kernel.c
 )
 
-# 链接阶段（关键：和 Makefile 一致）
 target_link_options(kernel.elf PRIVATE
-    -march=${RISCV_ARCH}
-    -mabi=${RISCV_ABI}
     -nostdlib
     -nostartfiles
-    -ffreestanding
     -static
-)
-
-# 生成 kernel.bin
-add_custom_command(
-    OUTPUT kernel.bin
-    COMMAND ${CMAKE_OBJCOPY} -O binary kernel.elf kernel.bin
-    DEPENDS kernel.elf
-    COMMENT "Generating kernel.bin"
-)
-
-add_custom_target(bin ALL DEPENDS kernel.bin)
-
-# 可选：dump
-add_custom_target(dump
-    COMMAND ${CMAKE_OBJDUMP} -D -b binary -m riscv:${RISCV_ARCH} --adjust-vma=0x0 kernel.bin
-    DEPENDS kernel.bin
-    COMMENT "Dumping kernel.bin"
+    -Wl,--gc-sections
 )

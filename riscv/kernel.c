@@ -1,14 +1,3 @@
-__attribute__((section(".text.startup")))
-__attribute__((naked))
-void _start(){
-	int *p=(int*)0xF0000000;
-	*p=0x00eeeeee;
-    asm volatile(
-        "jal main\n"
-    );
-    while (1);
-}
-
 #include <stdint.h>
 
 #define LED_MATRIX_0_BASE   0xF0000000
