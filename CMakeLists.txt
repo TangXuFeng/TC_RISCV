@@ -28,3 +28,7 @@ add_subdirectory(tools)
 add_subdirectory(riscv)
 
 
+add_custom_target(runhello ALL
+    COMMAND $<TARGET_FILE:hello>
+    DEPENDS $<TARGET_FILE:hello>
+)

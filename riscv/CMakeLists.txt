@@ -27,8 +27,34 @@ add_executable(kernel.elf
 )
 
 target_link_options(kernel.elf PRIVATE
+    -fPIC
     -nostdlib
     -nostartfiles
-    -static
+    -static 
     -Wl,--gc-sections
+    -Wl,--build-id=none
 )
+
+add_custom_target(bin ALL
+    DEPENDS kernel.bin
+)
+
+add_custom_command(
+    OUTPUT kernel.bin 
+    COMMAND ${CMAKE_OBJCOPY} -O binary kernel.elf kernel.bin
+    DEPENDS kernel.elf
+
+)
+
+add_custom_command(
+    OUTPUT kernel.dump
+    COMMAND ${CMAKE_OBJDUMP} -D -b binary -m riscv:rv32 --adjust-vma=0x0 kernel.bin > kernel.dump
+    DEPENDS kernel.bin
+    COMMENT "Dumping kernel.bin"
+)
+
+add_custom_target(dump ALL
+    DEPENDS kernel.dump
+)
+
+

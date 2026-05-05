@@ -3,8 +3,8 @@
     .type _start, @function
 
 _start:
-
-    jal  ra, main
+    li  sp, 0x10000
+    jal ra, main
 
 1:
     j 1b
