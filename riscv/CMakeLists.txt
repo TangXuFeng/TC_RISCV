@@ -30,17 +30,17 @@ target_link_options(kernel.elf PRIVATE
     -fPIC
     -nostdlib
     -nostartfiles
-    -static 
+    -static
     -Wl,--gc-sections
     -Wl,--build-id=none
 )
 
-add_custom_target(bin ALL
+add_custom_target(kernel_bin ALL
     DEPENDS kernel.bin
 )
 
 add_custom_command(
-    OUTPUT kernel.bin 
+    OUTPUT kernel.bin
     COMMAND ${CMAKE_OBJCOPY} -O binary kernel.elf kernel.bin
     DEPENDS kernel.elf
 
