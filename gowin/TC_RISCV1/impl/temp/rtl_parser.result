@@ -1,0 +1,142 @@
+[
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_padd/gowin_padd.v",
+  "InstLine" : 10,
+  "InstName" : "Gowin_PADD",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_padd/gowin_padd.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "Gowin_PADD"
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_ram16s/gowin_ram16s.v",
+  "InstLine" : 10,
+  "InstName" : "Gowin_RAM16S",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_ram16s/gowin_ram16s.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "Gowin_RAM16S"
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_rom16/gowin_rom16.v",
+  "InstLine" : 10,
+  "InstName" : "Gowin_ROM16",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_rom16/gowin_rom16.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "Gowin_ROM16"
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_sp/gowin_sp.v",
+  "InstLine" : 10,
+  "InstName" : "Gowin_SP",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_sp/gowin_sp.v",
+  "ModuleLine" : 10,
+  "ModuleName" : "Gowin_SP"
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/soc.sv",
+  "InstLine" : 1,
+  "InstName" : "soc",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/soc.sv",
+  "ModuleLine" : 1,
+  "ModuleName" : "soc",
+  "SubInsts" : [
+   {
+    "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/soc.sv",
+    "InstLine" : 13,
+    "InstName" : "u_core",
+    "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+    "ModuleLine" : 1,
+    "ModuleName" : "core",
+    "SubInsts" : [
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 24,
+      "InstName" : "u_pc",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "pc"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 32,
+      "InstName" : "u_dmem",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dmem.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "dmem"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 39,
+      "InstName" : "u_rf",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "regfile"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 51,
+      "InstName" : "u_imem",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/imem.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "imem"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 55,
+      "InstName" : "u_dec",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "decode"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 64,
+      "InstName" : "u_imm",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "immgen"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 68,
+      "InstName" : "u_ctrl",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "control"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 76,
+      "InstName" : "u_alu",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/alu.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "alu"
+     },
+     {
+      "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+      "InstLine" : 83,
+      "InstName" : "u_branch",
+      "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/branch_unit.sv",
+      "ModuleLine" : 1,
+      "ModuleName" : "branch_unit"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/virtual_memory.sv",
+  "InstLine" : 1,
+  "InstName" : "virtual_memory",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/virtual_memory.sv",
+  "ModuleLine" : 1,
+  "ModuleName" : "virtual_memory"
+ },
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dcache.sv",
+  "InstLine" : 1,
+  "InstName" : "dcache",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dcache.sv",
+  "ModuleLine" : 1,
+  "ModuleName" : "dcache"
+ }
+]

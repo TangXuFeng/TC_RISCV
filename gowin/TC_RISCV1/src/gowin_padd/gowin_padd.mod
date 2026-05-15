@@ -1,0 +1,22 @@
+-series GW2A
+-device GW2A-18
+-device_version C
+-package PBGA256
+-part_number GW2A-LV18PG256C8/I7
+
+
+-mod_name Gowin_PADD
+-file_name gowin_padd
+-path /home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_padd/
+-type PADD
+-file_type vlg
+-width_a 18
+-width_b 18
+-source_a parallel
+-source_b parallel
+-en_shiftout_a false
+-en_shiftout_b false
+-addsub_op add
+-reset_mode sync
+-ina_reg registered
+-inb_reg registered

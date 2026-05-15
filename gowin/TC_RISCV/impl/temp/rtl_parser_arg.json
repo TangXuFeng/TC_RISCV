@@ -1,0 +1,29 @@
+{
+ "Device" : "GW2A-18C",
+ "Files" : [
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/impl/temp/rtl_parser.result",
+ "Top" : "",
+ "VerilogStd" : "sysv",
+ "VhdlStd" : "vhdl_93"
+}

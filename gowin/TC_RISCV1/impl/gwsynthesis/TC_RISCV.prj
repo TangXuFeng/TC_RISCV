@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-synthesis-project>
+<Project>
+    <Version>beta</Version>
+    <Device id="GW2A-18C" package="PBGA256" speed="8" partNumber="GW2A-LV18PG256C8/I7"/>
+    <FileList>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/branch_unit.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/alu.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dmem.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/imem.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/soc.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/ddr3_contorl.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/virtual_memory.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_sp/gowin_sp.v" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_ram16s/gowin_ram16s.v" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_rom16/gowin_rom16.v" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_padd/gowin_padd.v" type="verilog"/>
+    </FileList>
+    <OptionList>
+        <Option type="disable_insert_pad" value="0"/>
+        <Option type="global_freq" value="100.000"/>
+        <Option type="looplimit" value="2000"/>
+        <Option type="output_file" value="/home/txf/git/TC_RISCV/gowin/TC_RISCV/impl/gwsynthesis/TC_RISCV.vg"/>
+        <Option type="print_all_synthesis_warning" value="0"/>
+        <Option type="ram_rw_check" value="0"/>
+        <Option type="top_module" value="core"/>
+        <Option type="vcc" value="1.0"/>
+        <Option type="verilog_language" value="sysv-2017"/>
+        <Option type="vhdl_language" value="vhdl-1993"/>
+    </OptionList>
+</Project>

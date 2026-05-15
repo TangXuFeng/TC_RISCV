@@ -1,0 +1,89 @@
+{
+ "Device" : "GW2A-18C",
+ "Files" : [
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/alu.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/branch_unit.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/ddr3_contorl.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dmem.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_padd/gowin_padd.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_ram16s/gowin_ram16s.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_rom16/gowin_rom16.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/gowin_sp/gowin_sp.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/imem.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/soc.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/virtual_memory.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/dcache.sv",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/impl/temp/rtl_parser.result",
+ "Top" : "core",
+ "VerilogStd" : "sysv",
+ "VhdlStd" : "vhdl_93"
+}

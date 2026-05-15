@@ -1,0 +1,10 @@
+[
+ {
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+  "InstLine" : 1,
+  "InstName" : "core",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+  "ModuleLine" : 1,
+  "ModuleName" : "core"
+ }
+]
