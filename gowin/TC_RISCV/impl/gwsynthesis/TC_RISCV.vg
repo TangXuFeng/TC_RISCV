@@ -1,0 +1,69 @@
+//
+//Written by GowinSynthesis
+//Tool Version "V1.9.11.03 Education"
+//Sat May 16 06:14:34 2026
+
+//Source file index table:
+//file0 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv"
+//file1 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv"
+//file2 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv"
+//file3 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv"
+//file4 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv"
+//file5 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv"
+//file6 "\/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv"
+`pragma protect begin_protected
+`pragma protect version="2.3"
+`pragma protect author="default"
+`pragma protect author_info="default"
+`pragma protect encrypt_agent="GOWIN"
+`pragma protect encrypt_agent_info="GOWIN Encrypt Version 2.3"
+
+`pragma protect encoding=(enctype="base64", line_length=76, bytes=256)
+`pragma protect key_keyowner="GOWIN",key_keyname="GWK2023-09",key_method="rsa"
+`pragma protect key_block
+vKOVbVtdS/lRekJfXFa186cF4gTJkL2RHKnHllvL9wF0PHMFouP3T0UwLpm1230DT+tkG0kBRmD0
+dn/l6tnp9n49QKbFYot214qh+8JnGKeUiAa6NZEDoPATnKiY70MhoNeAXRG8LzsS8hNXd5Xc3oms
+OPUwhzWCTo8YPDEOk9BF4qSLigpfrxY5diGTlRXjzF5OndRzArWEvLYHlGEEXwHCnixunC/Y4kbG
++If+Y5HJKkwxQiy+84EUzD9L1mSxPL/oYhjn4FRAGpnJhHL3GddhyoEKK+lZ19VAiJiO4g+aVlRd
+yc0TmhnFDkZjWsR/qrgKRvHGzd4hgWBO0wXBfw==
+
+`pragma protect encoding=(enctype="base64", line_length=76, bytes=1888)
+`pragma protect data_keyowner="default-ip-vendor"
+`pragma protect data_keyname="default-ip-key"
+`pragma protect data_method="aes128-cfb"
+`pragma protect data_block
+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
+y8WePl/GQw==
+`pragma protect end_protected

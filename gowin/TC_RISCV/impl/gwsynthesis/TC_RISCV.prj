@@ -8,6 +8,9 @@
         <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv" type="verilog"/>
         <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv" type="verilog"/>
         <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv" type="verilog"/>
+        <File path="/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv" type="verilog"/>
     </FileList>
     <OptionList>
         <Option type="disable_insert_pad" value="0"/>

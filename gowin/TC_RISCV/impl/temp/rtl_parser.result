@@ -1,10 +1,10 @@
 [
  {
-  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+  "InstFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv",
   "InstLine" : 1,
-  "InstName" : "core",
-  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
+  "InstName" : "icache",
+  "ModuleFile" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv",
   "ModuleLine" : 1,
-  "ModuleName" : "core"
+  "ModuleName" : "icache"
  }
 ]

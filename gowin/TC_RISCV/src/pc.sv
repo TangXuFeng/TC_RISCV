@@ -4,7 +4,7 @@ module pc(
     input  logic [31:0] rst_pc,
 
     input  logic        ce,
-    output logic [31:0] pc
+    output logic [31:0] pc,
     input  logic [31:0] next_pc
 );
     always_ff @(posedge clk,negedge rst_n) begin

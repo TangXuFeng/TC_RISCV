@@ -2,7 +2,7 @@ module decode(
     input  logic [31:0] instr,
     output logic        c_op,
     output logic [31:0] instr32,
-    output logic [6:0]  opcode,
+    output logic [4:0]  opcode,
     output logic [4:0]  rs1,
     output logic [4:0]  rs2,
     output logic [4:0]  rd,
@@ -136,7 +136,7 @@ module decode(
         end
 
         instr32 = expanded;
-        opcode = expanded[6:0];
+        opcode = expanded[6:2];
         rd     = expanded[11:7];
         funct3 = expanded[14:12];
         rs1    = expanded[19:15];

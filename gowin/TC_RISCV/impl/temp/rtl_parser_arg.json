@@ -16,6 +16,18 @@
   {
    "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/icache.sv",
    "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv",
+   "Type" : "verilog"
   }
  ],
  "IncludePath" : [

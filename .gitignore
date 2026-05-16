@@ -4,6 +4,7 @@
 *.log
 *.tmp
 *.swp
+.cache/
 build/
 shell
 !游戏存档文件夹
