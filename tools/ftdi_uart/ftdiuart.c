@@ -119,6 +119,13 @@ void disable_raw_mode()
     tcsetattr(0, TCSANOW, &t);
 }
 
+void handle_cli_command(const char* cmd)
+{
+    // TODO: 你以后在这里扩展命令
+    // 可以加入比如输入hex，或者从文件输入等
+    printf("\n[CMD] %s\n", cmd);
+}
+
 /* ============================
    主线程：CLI（非阻塞输入）
    ============================ */
@@ -167,7 +174,20 @@ int main()
             int c = getchar();
 
             if (c == '\n' || c == '\r') {
+
                 line[len] = 0;
+
+                /* ========== 新增：命令模式 ========== */
+                if (line[0] == '.') {
+                    handle_cli_command((char*)line);
+
+                    printf("uart> ");
+                    fflush(stdout);
+                    len = 0;
+                    continue;
+                }
+
+                /* ========== 普通 TX ========== */
                 uart_write(line, len);
                 uart_write((unsigned char*)"\n", 1);
 
