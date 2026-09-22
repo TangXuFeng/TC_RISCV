@@ -1,25 +1,30 @@
+// 直接使用ftdi第二个通道读取sipeed tang primer 20k 开发板的uart
+// 不知道为什么，linux下作为串口读写，ftdi_sio总是有问题
+// 使用 gcc ftdiuart.c -o ftdiuart -lftdi1
+// 进行编译
+
+#include <libftdi1/ftdi.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <termios.h>
 #include <sys/select.h>
-#include <libftdi1/ftdi.h>
+#include <termios.h>
+#include <unistd.h>
 
-static struct ftdi_context *ftdi;
+static struct ftdi_context* ftdi;
 
 /* ============================
    RX 队列（读线程 → 主线程）
    ============================ */
 #define QSIZE 128
-char *rx_queue[QSIZE];
+char* rx_queue[QSIZE];
 int q_head = 0, q_tail = 0;
 
 pthread_mutex_t q_lock = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t  q_cond = PTHREAD_COND_INITIALIZER;
+pthread_cond_t q_cond = PTHREAD_COND_INITIALIZER;
 
-void rx_queue_push(const char *s)
+void rx_queue_push(const char* s)
 {
     pthread_mutex_lock(&q_lock);
 
@@ -33,14 +38,14 @@ void rx_queue_push(const char *s)
     pthread_mutex_unlock(&q_lock);
 }
 
-char *rx_queue_pop()
+char* rx_queue_pop()
 {
     pthread_mutex_lock(&q_lock);
 
     while (q_head == q_tail)
         pthread_cond_wait(&q_cond, &q_lock);
 
-    char *s = rx_queue[q_head];
+    char* s = rx_queue[q_head];
     q_head = (q_head + 1) % QSIZE;
 
     pthread_mutex_unlock(&q_lock);
@@ -52,7 +57,7 @@ char *rx_queue_pop()
    ============================ */
 pthread_mutex_t tx_lock = PTHREAD_MUTEX_INITIALIZER;
 
-void uart_write(const unsigned char *data, int len)
+void uart_write(const unsigned char* data, int len)
 {
     pthread_mutex_lock(&tx_lock);
     ftdi_write_data(ftdi, data, len);
@@ -62,7 +67,7 @@ void uart_write(const unsigned char *data, int len)
 /* ============================
    读线程（阻塞读）
    ============================ */
-void *uart_read_thread(void *arg)
+void* uart_read_thread(void* arg)
 {
     unsigned char buf[512];
     unsigned char line[4096];
@@ -70,7 +75,8 @@ void *uart_read_thread(void *arg)
 
     while (1) {
         int ret = ftdi_read_data(ftdi, buf, sizeof(buf));
-        if (ret <= 0) continue;
+        if (ret <= 0)
+            continue;
 
         for (int i = 0; i < ret; i++) {
             unsigned char c = buf[i];
@@ -84,7 +90,7 @@ void *uart_read_thread(void *arg)
 
             line[pos++] = c;
 
-            if (pos >= sizeof(line)-1) {
+            if (pos >= sizeof(line) - 1) {
                 line[pos] = 0;
                 rx_queue_push((char*)line);
                 pos = 0;
@@ -138,13 +144,13 @@ int main()
 
         /* ========== 处理 RX 队列 ========== */
         while (q_head != q_tail) {
-            char *rx = rx_queue_pop();
+            char* rx = rx_queue_pop();
 
-            printf("\r\033[K");  // 清除输入行
+            printf("\r\033[K"); // 清除输入行
             printf("[RX] %s\n", rx);
             free(rx);
 
-            printf("uart> %.*s", len, line);  // 恢复输入行
+            printf("uart> %.*s", len, line); // 恢复输入行
             fflush(stdout);
         }
 
@@ -153,7 +159,7 @@ int main()
         FD_ZERO(&rfds);
         FD_SET(0, &rfds);
 
-        struct timeval tv = {0, 20000};  // 20ms
+        struct timeval tv = { 0, 20000 }; // 20ms
 
         int n = select(1, &rfds, NULL, NULL, &tv);
 
@@ -182,7 +188,7 @@ int main()
                 continue;
             }
 
-            if (len < sizeof(line)-1) {
+            if (len < sizeof(line) - 1) {
                 line[len++] = c;
                 putchar(c);
                 fflush(stdout);
