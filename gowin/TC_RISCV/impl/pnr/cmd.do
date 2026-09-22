@@ -2,6 +2,7 @@
 -p GW2A-18C-PBGA256-8
 -pn GW2A-LV18PG256C8/I7
 -cfg /home/txf/git/TC_RISCV/gowin/TC_RISCV/impl/pnr/device.cfg
+-sdc /home/txf/git/TC_RISCV/gowin/TC_RISCV/src/TC_RISCV.sdc
 -bit
 -tr
 -ph

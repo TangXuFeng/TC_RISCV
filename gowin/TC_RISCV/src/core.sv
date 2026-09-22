@@ -6,8 +6,8 @@ module core(
     output  logic [31:0] instr_addr,
     input   logic [31:0] instr,
     //内存读写
-    output  logic mem_addr,
-    output  logic [3:0] mem_ctrl,
+    output  logic [31:0] mem_addr,
+    output  logic [3:0]  mem_ctrl,
     output  logic [31:0] mem_wdata,
     input   logic [31:0] mem_rdata,
     //就绪=1
@@ -58,7 +58,7 @@ decode u_decode(
     .funct7(funct7)
 );
 
-immgen u_immgen(
+imm u_immgen(
     .instr(ext_instr),
     .opcode(opcode),
     .imm(imm)
@@ -98,7 +98,7 @@ regfile u_regfile(
     .rs2_data(rs2_data)
 );
 
-alu u_alu(
+alu u_altu(
     .op1(rs1_data),
     .op2(rs2_data),
     .ctrl(alu_ctrl),

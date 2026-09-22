@@ -2,15 +2,11 @@
  "Device" : "GW2A-18C",
  "Files" : [
   {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/core.sv",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv",
-   "Type" : "verilog"
-  },
-  {
-   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv",
    "Type" : "verilog"
   },
   {
@@ -18,15 +14,31 @@
    "Type" : "verilog"
   },
   {
-   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/contorl.sv",
-   "Type" : "verilog"
-  },
-  {
    "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/immgen.sv",
    "Type" : "verilog"
   },
   {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/pc.sv",
+   "Type" : "verilog"
+  },
+  {
    "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/regfile.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/defender.vh",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/c_expand.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/idecode.sv",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "/home/txf/git/TC_RISCV/gowin/TC_RISCV/src/decode.sv",
    "Type" : "verilog"
   }
  ],
